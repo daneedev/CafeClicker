@@ -20,6 +20,12 @@
     <section class="automation">
       <h2>Automatizace</h2>
       <p>Brzy přidáme možnost automatizace výroby kávy!</p>
+      <article class="store-item">
+        <p class="item-emoji">&#x2615;</p>
+        <p class="item-title">Kávovar</p>
+        <div class="level-badge">Level 1</div>
+        <button class="buy-button" disabled>20 coins</button>
+      </article>
     </section>
     <section class="achievements">
       <h2>Ocenění</h2>
