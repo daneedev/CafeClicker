@@ -12,34 +12,47 @@
     </section>
   </header>
   <main>
-    <section class="click-box">
-      <button class="click-button" @click="handleClick">
-        Připravit kávu
-      </button>
-    </section>
-    <section class="automation">
-      <h2>Automatizace</h2>
-      <p>Brzy přidáme možnost automatizace výroby kávy!</p>
-      <article class="store-item">
-        <p class="item-emoji">&#x2615;</p>
-        <p class="item-title">Kávovar</p>
-        <div class="level-badge">Level 1</div>
-        <button class="buy-button" disabled>20 coins</button>
-      </article>
-    </section>
-    <section class="achievements">
-      <h2>Ocenění</h2>
-      <p>Brzy přidáme možnost získat ocenění za vaše kávové úspěchy!</p>
-    </section>
-    <section class="upgrades">
-      <h2>Vylepšení</h2>
-      <p>Brzy přidáme možnost vylepšit vaši kávovou produkci!</p>
-    </section>
+    <div class="grid-container">
+      <section class="click-box">
+        <button class="click-button" @click="handleClick">
+          Připravit kávu
+        </button>
+      </section>
+      <section class="automation">
+        <h2>Automatizace</h2>
+        <p>Brzy přidáme možnost automatizace výroby kávy!</p>
+        <article class="store-item">
+          <p class="item-emoji">&#x2615;</p>
+          <p class="item-title">Kávovar</p>
+          <div class="level-badge">Level 1</div>
+          <p>Produkce: 1 coin/s</p>
+          <button class="buy-button" disabled>20 coins</button>
+        </article>
+      </section>
+      <section class="achievements">
+        <h2>Ocenění</h2>
+        <p>Brzy přidáme možnost získat ocenění za vaše kávové úspěchy!</p>
+        <article class="store-item">
+          <p class="item-emoji">&#x2615;</p>
+          <p class="item-title">Připrav 50 káv</p>
+          <div class="level-badge">0/50</div>
+        </article>
+      </section>
+      <section class="upgrades">
+        <h2>Vylepšení</h2>
+        <p>Brzy přidáme možnost vylepšit vaši kávovou produkci!</p>
+        <article class="store-item">
+          <p class="item-emoji">&#x1FAD8;</p>
+          <p class="item-title">Lepší zrnka kávy</p>
+          <button class="buy-button" disabled>100 coins</button>
+        </article>
+      </section>
+    </div>
   </main>
 </template>
 
 <script setup lang="ts">
-import "./style.css"
+import "./style.css";
 import { ref } from "vue";
 
 const money = ref(0);
