@@ -4,6 +4,14 @@ Cafe Clicker je webová klikací (idle) hra, ve které hráč buduje vlastní ka
 
 Hlavním cílem hry je získat nejvíce virtuální měny, investovat do automatizace a postupně odemykat lepší upgrady, díky kterým může exponencionálně zvýšit zisk své kavárny.
 
+## Rozložení UI
+- Web obsahuje header s názvem hry, počtem coinů a produkce za sekundu
+- Web je rozdělen na čtyři části, z čehož dvě jsou nadesignovány jako obchod
+    - První **klikací** část - je určena jako vstup pro uživatele, aby mohl získávat měnu. Tato část bude obsahovat velké tlačítko
+    - Druhá **automatizační** část - je určena k nákupu automatizací, které generují zisk za uživatele
+    - Třetí část s **vylepšení** - je určena k nákupu permanentních vylepšení, které zvyšují hodnotu produktu
+    - Čtvrtá část s **achievementy** - je určena k vyzobrazení achievementů, které uživatel získal, nebo může získat
+    
 ## Herní mechanika
 - Hráč kliká na tlačítko "Připravit kávu", čímž získáva virtuální měnu
 - Základní klik: +1 coin
