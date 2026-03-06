@@ -3,20 +3,18 @@
     <h1>Café Clicker</h1>
     <section class="stats">
       <div class="stats-item">
-        <p>{{ money }}</p>
+        <p>{{ gameStore.coins }}</p>
         <img src="/img/coin.svg" alt="coin" class="coin-icon" />
       </div>
       <div class="stats-item">
-        <p class="income">0/s</p>
+        <p class="income">{{ gameStore.coinsPerSecond }}/s</p>
       </div>
     </section>
   </header>
   <main>
     <div class="grid-container">
       <section class="click-box">
-        <button class="click-button" @click="handleClick">
-          Připravit kávu
-        </button>
+        <ClickButton />
       </section>
       <section class="automation">
         <h2>Automatizace</h2>
@@ -49,12 +47,9 @@
 
 <script setup lang="ts">
 import "./style.css";
-import { ref } from "vue";
 import StoreItem from "./components/StoreItem.vue";
+import ClickButton from "./components/ClickButton.vue";
 
-const money = ref(0);
-
-function handleClick() {
-  money.value += 1;
-}
+import { useGameStore } from "./stores/gameStore";
+const gameStore = useGameStore();
 </script>
