@@ -21,31 +21,27 @@
       <section class="automation">
         <h2>Automatizace</h2>
         <p>Brzy přidáme možnost automatizace výroby kávy!</p>
-        <article class="store-item">
-          <p class="item-emoji">&#x2615;</p>
-          <p class="item-title">Kávovar</p>
-          <div class="level-badge">Level 1</div>
-          <p>Produkce: 1 coin/s</p>
-          <button class="buy-button" disabled>20 coins</button>
-        </article>
+        <StoreItem
+          emoji="&#x1F3EB;"
+          title="Barista"
+          badge="Level 1"
+          description="Produkce 1 káva/s"
+          :price="50"
+        />
       </section>
       <section class="achievements">
         <h2>Ocenění</h2>
         <p>Brzy přidáme možnost získat ocenění za vaše kávové úspěchy!</p>
-        <article class="store-item">
-          <p class="item-emoji">&#x2615;</p>
-          <p class="item-title">Připrav 50 káv</p>
-          <div class="level-badge">0/50</div>
-        </article>
       </section>
       <section class="upgrades">
         <h2>Vylepšení</h2>
         <p>Brzy přidáme možnost vylepšit vaši kávovou produkci!</p>
-        <article class="store-item">
-          <p class="item-emoji">&#x1FAD8;</p>
-          <p class="item-title">Lepší zrnka kávy</p>
-          <button class="buy-button" disabled>100 coins</button>
-        </article>
+        <StoreItem
+          emoji="&#x1FAD8;"
+          title="Lepší zrnka kávy"
+          description="Zvyšte kvalitu vaší kávy!"
+          :price="100"
+        />
       </section>
     </div>
   </main>
@@ -54,6 +50,7 @@
 <script setup lang="ts">
 import "./style.css";
 import { ref } from "vue";
+import StoreItem from "./components/StoreItem.vue";
 
 const money = ref(0);
 
