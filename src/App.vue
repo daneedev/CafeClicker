@@ -22,9 +22,10 @@
         <StoreItem
           emoji="&#x1F3EB;"
           title="Barista"
-          badge="Level 1"
-          description="Produkce 1 káva/s"
-          :price="50"
+          badge="Lvl 1"
+          description="Základní pomocník pro vaši kavárnu!"
+          :production="1"
+          :price="20"
         />
       </section>
       <section class="achievements">
