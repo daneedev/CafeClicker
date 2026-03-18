@@ -1,81 +1,18 @@
 @import url("https://api.ssps.cajthaml.eu/file/68bd7c005c671348b091f8b1");
 @import url('https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
 
+:root {
+  --primary-color: #99621E;
+  --secondary-color: #C4C0B3;
+  --background-color: #EFECCA;
+  --accent-color: #F4F2DA;
+}
+
 body, #app {
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #EFECCA;
+  background-color: var(--background-color);
   font-family: "Sour Gummy", sans-serif;
 }
-
-.game-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 2px solid #c4c0b3;
-  padding: 1rem 5rem;
-  background-color: #f4f2da;
-
-  h1 {
-    color: #99621E;
-    font-weight: 700;
-  }
-  .stats {
-    display: flex;
-    flex-direction: column;
-    margin-left: 2rem;
-  }
-
-  .stats-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .coin-icon {
-      width: 24px;
-      height: 24px;
-      margin-left: 0.5rem;
-  }
-  .stats-item p {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-
-  .stats-item .income {
-    font-size: 1.2rem;
-    color: #99621E;
-    margin-left: 0.5rem;
-  }
-}
-
-main {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.grid-container {
-  width: 90%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  padding: 2rem;
-}
-
-
-@media (max-width: 700px) {
-  .grid-container {
-    grid-template-columns: 1fr;
-  }
-}
-@media (max-width: 550px) {
-  .grid-container {
-    width: 95%;
-    padding: 1rem;
-  }
-}
-

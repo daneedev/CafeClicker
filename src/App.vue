@@ -54,3 +54,79 @@ import ClickButton from "./components/ClickButton.vue";
 import { useGameStore } from "./stores/gameStore";
 const gameStore = useGameStore();
 </script>
+
+<style scoped>
+.game-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--secondary-color);
+  padding: 1rem 5rem;
+  background-color: var(--accent-color);
+
+  h1 {
+    color: var(--primary-color);
+    font-weight: 700;
+  }
+  .stats {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2rem;
+  }
+
+  .stats-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .coin-icon {
+    width: 24px;
+    height: 24px;
+    margin-left: 0.5rem;
+  }
+  .stats-item p {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .stats-item .income {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-left: 0.5rem;
+  }
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.grid-container {
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.click-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 700px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 550px) {
+  .grid-container {
+    width: 95%;
+    padding: 1rem;
+  }
+}
+</style>
