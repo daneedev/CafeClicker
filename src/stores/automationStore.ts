@@ -78,4 +78,10 @@ export const useAutomationStore = defineStore("automation", {
       return catalog;
     },
   },
+  actions: {
+    levelUp(automationId: number) {
+      const currentLevel = this.ownedLevels[automationId] || 0;
+      this.ownedLevels[automationId] = currentLevel + 1;
+    },
+  },
 });

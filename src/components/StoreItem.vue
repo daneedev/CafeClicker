@@ -18,6 +18,7 @@
       :title="`${props.price}`"
       icon="/img/coin.svg"
       :disabled="disabledBtn"
+      @click="handlePurchase"
     />
   </article>
 </template>
@@ -25,9 +26,11 @@
 <script setup lang="ts">
 import Button from "./Button.vue";
 import { useGameStore } from "../stores/gameStore";
+import { useAutomationStore } from "../stores/automationStore";
 import { computed } from "vue";
 
 const props = defineProps<{
+  id?: number;
   emoji: string;
   title: string;
   badge?: string;
@@ -37,11 +40,19 @@ const props = defineProps<{
 }>();
 
 const gameStore = useGameStore();
+const automationStore = useAutomationStore();
 
 const disabledBtn = computed(() => {
   const price = props.price ?? 0;
   return gameStore.coins < price;
 });
+
+function handlePurchase() {
+  const price = props.price ?? 0;
+  if (props.id && gameStore.spendCoins(price)) {
+    automationStore.levelUp(props.id);
+  }
+}
 </script>
 
 <style scoped>

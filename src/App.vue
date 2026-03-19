@@ -22,6 +22,7 @@
         <StoreItem
           v-for="item in automationStore.automationCatalog"
           :key="item.id"
+          :id="item.id"
           :emoji="item.emoji"
           :title="item.name"
           :description="item.description"
