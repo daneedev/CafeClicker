@@ -31,7 +31,7 @@ const props = defineProps<{
   title: string;
   badge?: string;
   description?: string;
-  production?: number;
+  production?: string;
   price?: number;
 }>();
 

@@ -20,12 +20,14 @@
         <h2>Automatizace</h2>
         <p>Brzy přidáme možnost automatizace výroby kávy!</p>
         <StoreItem
-          emoji="&#x1F3EB;"
-          title="Barista"
-          badge="Lvl 1"
-          description="Základní pomocník pro vaši kavárnu!"
-          :production="1"
-          :price="20"
+          v-for="item in automationStore.automationCatalog"
+          :key="item.id"
+          :emoji="item.emoji"
+          :title="item.name"
+          :description="item.description"
+          :badge="'Lvl ' + item.level"
+          :price="item.cost"
+          :production="item.cps"
         />
       </section>
       <section class="achievements">
@@ -53,6 +55,9 @@ import ClickButton from "./components/ClickButton.vue";
 
 import { useGameStore } from "./stores/gameStore";
 const gameStore = useGameStore();
+
+import { useAutomationStore } from "./stores/automationStore";
+const automationStore = useAutomationStore();
 </script>
 
 <style scoped>
@@ -116,6 +121,12 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.automation {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 @media (max-width: 700px) {
