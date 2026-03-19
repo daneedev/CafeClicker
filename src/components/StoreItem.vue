@@ -14,6 +14,7 @@
       {{ props.description }}
     </p>
     <Button
+      v-if="props.price !== undefined"
       :title="`${props.price}`"
       icon="/img/coin.svg"
       :disabled="disabledBtn"
@@ -24,7 +25,7 @@
 <script setup lang="ts">
 import Button from "./Button.vue";
 import { useGameStore } from "../stores/gameStore";
-import { ref, watch } from "vue";
+import { computed } from "vue";
 
 const props = defineProps<{
   emoji: string;
@@ -35,16 +36,12 @@ const props = defineProps<{
   price?: number;
 }>();
 
-const disabledBtn = ref(true);
-
 const gameStore = useGameStore();
 
-watch(
-  () => gameStore.coins,
-  (newCoins) => {
-    disabledBtn.value = newCoins < (props.price || 0);
-  },
-);
+const disabledBtn = computed(() => {
+  const price = props.price ?? 0;
+  return gameStore.coins < price;
+});
 </script>
 
 <style scoped>

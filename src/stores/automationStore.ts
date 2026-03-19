@@ -66,9 +66,8 @@ export const useAutomationStore = defineStore("automation", {
         const cost = Math.floor(
           automation.baseCost * Math.pow(automation.costMultiplier, level),
         );
-        const cps = (
-          automation.baseCps * Math.pow(automation.cpsMultiplier, level)
-        ).toFixed(2);
+        const cps =
+          automation.baseCps * Math.pow(automation.cpsMultiplier, level);
         return {
           ...automation,
           level,

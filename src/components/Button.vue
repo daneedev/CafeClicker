@@ -4,7 +4,8 @@
     <img
       v-if="props.icon"
       :src="props.icon"
-      alt="button icon"
+      :alt="props.iconAlt || ''"
+      :aria-hidden="!props.iconAlt"
       class="button-icon"
     />
   </button>
@@ -14,6 +15,7 @@
 const props = defineProps<{
   title: string;
   icon?: string;
+  iconAlt?: string;
   onClick?: () => void;
   disabled?: boolean;
 }>();
