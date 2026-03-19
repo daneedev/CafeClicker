@@ -27,7 +27,7 @@
           :description="item.description"
           :badge="'Lvl ' + item.level"
           :price="item.cost"
-          :production="item.cps"
+          :production="item.cps.toFixed(2)"
         />
       </section>
       <section class="achievements">
