@@ -3,11 +3,11 @@
     <h1>Café Clicker</h1>
     <section class="stats">
       <div class="stats-item">
-        <p>{{ gameStore.coins }}</p>
+        <p>{{ gameStore.coins.toFixed(2) }}</p>
         <img src="/img/coin.svg" alt="coin" class="coin-icon" />
       </div>
       <div class="stats-item">
-        <p class="income">{{ gameStore.coinsPerSecond }}/s</p>
+        <p class="income">{{ gameStore.coinsPerSecond.toFixed(2) }}/s</p>
       </div>
     </section>
   </header>
@@ -58,7 +58,10 @@ import { useGameStore } from "./stores/gameStore";
 const gameStore = useGameStore();
 
 import { useAutomationStore } from "./stores/automationStore";
+import { useGameLoop } from "./composables/useGameLoop";
 const automationStore = useAutomationStore();
+
+useGameLoop();
 </script>
 
 <style scoped>

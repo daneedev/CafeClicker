@@ -67,7 +67,8 @@ export const useAutomationStore = defineStore("automation", {
           automation.baseCost * Math.pow(automation.costMultiplier, level),
         );
         const cps =
-          automation.baseCps * Math.pow(automation.cpsMultiplier, level);
+          automation.baseCps *
+          (level == 0 ? 0 : Math.pow(automation.cpsMultiplier, level));
         return {
           ...automation,
           level,
@@ -76,6 +77,9 @@ export const useAutomationStore = defineStore("automation", {
         };
       });
       return catalog;
+    },
+    totalCps(): number {
+      return this.automationCatalog.reduce((sum, item) => sum + item.cps, 0);
     },
   },
   actions: {

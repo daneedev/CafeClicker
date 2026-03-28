@@ -51,6 +51,7 @@ function handlePurchase() {
   const price = props.price ?? 0;
   if (props.id && gameStore.spendCoins(price)) {
     automationStore.levelUp(props.id);
+    gameStore.coinsPerSecond = automationStore.totalCps;
   }
 }
 </script>
