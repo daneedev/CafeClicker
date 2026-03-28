@@ -18,7 +18,7 @@
       :title="`${props.price}`"
       icon="/img/coin.svg"
       :disabled="disabledBtn"
-      @click="handlePurchase"
+      :onClick="handlePurchase"
     />
   </article>
 </template>
