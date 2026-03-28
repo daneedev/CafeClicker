@@ -16,5 +16,12 @@ export const useGameStore = defineStore("game", {
     setCoinsPerSecond(amount: number) {
       this.coinsPerSecond = amount;
     },
+    spendCoins(amount: number) {
+      if (this.coins >= amount) {
+        this.coins -= amount;
+        return true;
+      }
+      return false;
+    },
   },
 });
