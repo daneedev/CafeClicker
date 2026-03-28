@@ -1,0 +1,8 @@
+services:
+  cafe-clicker:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/app
+    container_name: cafeclicker
