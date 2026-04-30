@@ -16,7 +16,7 @@ type OwnedLevels = Record<AutomationDefinition["id"], number>;
 const AUTOMATION_CATALOG: AutomationDefinition[] = [
   {
     id: 1,
-    emoji: "🏫",
+    emoji: "\u{1F3EB}",
     name: "Barista",
     description: "Základní pomocník pro vaši kavárnu.",
     baseCost: 20,
@@ -26,7 +26,7 @@ const AUTOMATION_CATALOG: AutomationDefinition[] = [
   },
   {
     id: 2,
-    emoji: "☕",
+    emoji: "\u{2615}",
     name: "Espresso stroj",
     description: "Automatizuje přípravu espressa.",
     baseCost: 125,

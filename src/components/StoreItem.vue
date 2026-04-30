@@ -7,7 +7,7 @@
         <div v-if="props.badge" class="item-badge">{{ props.badge }}</div>
       </section>
       <p v-if="props.production" class="item-production">
-        +{{ props.production }}/s
+        {{ props.production }}
       </p>
     </section>
     <p v-if="props.description" class="item-description">
@@ -28,11 +28,13 @@ import Button from "./Button.vue";
 import { useGameStore } from "../stores/gameStore";
 import { useAutomationStore } from "../stores/automationStore";
 import { computed } from "vue";
+import { useUpgradeStore } from "../stores/upgradeStore";
 
 const props = defineProps<{
-  id?: number;
+  id?: string;
   emoji: string;
   title: string;
+  type?: "automation" | "upgrade";
   badge?: string;
   description?: string;
   production?: string;
@@ -41,6 +43,7 @@ const props = defineProps<{
 
 const gameStore = useGameStore();
 const automationStore = useAutomationStore();
+const upgradeStore = useUpgradeStore();
 
 const disabledBtn = computed(() => {
   const price = props.price ?? 0;
@@ -50,8 +53,12 @@ const disabledBtn = computed(() => {
 function handlePurchase() {
   const price = props.price ?? 0;
   if (props.id && gameStore.spendCoins(price)) {
-    automationStore.levelUp(props.id);
-    gameStore.coinsPerSecond = automationStore.totalCps;
+    if (props.type === "automation") {
+      automationStore.levelUp(Number(props.id.split("-")[1]));
+      gameStore.coinsPerSecond = automationStore.totalCps;
+    } else if (props.type === "upgrade") {
+      upgradeStore.purchaseUpgrade(Number(props.id.split("-")[1]));
+    }
   }
 }
 </script>

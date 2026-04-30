@@ -1,14 +1,35 @@
 <template>
-  <button @click="handleClick">Připravit kávu</button>
+  <button @click="handleClick">Připravit kávu (+ {{ coinsToAdd }} káv)</button>
 </template>
 
 <script setup lang="ts">
 import { useGameStore } from "../stores/gameStore";
+import { useUpgradeStore } from "../stores/upgradeStore";
+import { computed } from "vue";
 
 const gameStore = useGameStore();
 
+const coinsToAdd = computed(() => {
+  let baseCoins = 1;
+  let clickMultiplier = 0;
+  for (const upgrade of upgradeStore.ownedUpgrades) {
+    if (upgrade.effect === "additive") {
+      baseCoins += upgrade.value;
+    } else if (upgrade.effect === "multiplier") {
+      clickMultiplier += upgrade.value;
+    }
+  }
+  if (clickMultiplier > 0) {
+    return baseCoins * clickMultiplier;
+  } else {
+    return baseCoins;
+  }
+});
+
+const upgradeStore = useUpgradeStore();
+
 function handleClick() {
-  gameStore.addCoins(1);
+  gameStore.addCoins(coinsToAdd.value);
   gameStore.addClick();
 }
 </script>

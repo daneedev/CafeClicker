@@ -21,14 +21,15 @@
         <p>Brzy přidáme možnost automatizace výroby kávy!</p>
         <StoreItem
           v-for="item in automationStore.automationCatalog"
-          :key="item.id"
-          :id="item.id"
+          :id="`automation-${item.id}`"
+          :key="`automation-${item.id}`"
           :emoji="item.emoji"
           :title="item.name"
           :description="item.description"
           :badge="'Lvl ' + item.level"
           :price="item.cost"
-          :production="item.cps.toFixed(2)"
+          :type="'automation'"
+          :production="`+ ${item.cps.toFixed(2)}/s`"
         />
       </section>
       <section class="achievements">
@@ -39,10 +40,15 @@
         <h2>Vylepšení</h2>
         <p>Brzy přidáme možnost vylepšit vaši kávovou produkci!</p>
         <StoreItem
-          emoji="&#x1FAD8;"
-          title="Lepší zrnka kávy"
-          description="Zvyšte kvalitu vaší kávy!"
-          :price="100"
+          v-for="item in upgradeStore.upgrades"
+          :id="`upgrade-${item.id}`"
+          :key="`upgrade-${item.id}`"
+          :emoji="item.emoji"
+          :title="item.name"
+          :production="item.label"
+          :description="item.description"
+          :price="item.cost"
+          :type="'upgrade'"
         />
       </section>
     </div>
@@ -60,6 +66,9 @@ const gameStore = useGameStore();
 import { useAutomationStore } from "./stores/automationStore";
 import { useGameLoop } from "./composables/useGameLoop";
 const automationStore = useAutomationStore();
+
+import { useUpgradeStore } from "./stores/upgradeStore";
+const upgradeStore = useUpgradeStore();
 
 useGameLoop();
 </script>
@@ -129,7 +138,8 @@ main {
   justify-content: center;
 }
 
-.automation {
+.automation,
+.upgrades {
   display: flex;
   flex-direction: column;
   gap: 1rem;
