@@ -34,7 +34,7 @@ const props = defineProps<{
   id?: string;
   emoji: string;
   title: string;
-  type?: "automation" | "upgrade";
+  type?: "automation" | "upgrade" | "achievement";
   badge?: string;
   description?: string;
   production?: string;
@@ -53,11 +53,14 @@ const disabledBtn = computed(() => {
 function handlePurchase() {
   const price = props.price ?? 0;
   if (props.id && gameStore.spendCoins(price)) {
-    if (props.type === "automation") {
-      automationStore.levelUp(Number(props.id.split("-")[1]));
-      gameStore.coinsPerSecond = automationStore.totalCps;
-    } else if (props.type === "upgrade") {
-      upgradeStore.purchaseUpgrade(Number(props.id.split("-")[1]));
+    switch (props.type) {
+      case "automation":
+        automationStore.levelUp(Number(props.id.split("-")[1]));
+        gameStore.coinsPerSecond = automationStore.totalCps;
+        break;
+      case "upgrade":
+        upgradeStore.purchaseUpgrade(Number(props.id.split("-")[1]));
+        break;
     }
   }
 }

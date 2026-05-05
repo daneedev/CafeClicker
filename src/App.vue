@@ -35,6 +35,17 @@
       <section class="achievements">
         <h2>Ocenění</h2>
         <p>Brzy přidáme možnost získat ocenění za vaše kávové úspěchy!</p>
+        <StoreItem
+          v-for="achievement in achievementStore.achievements"
+          :id="`achievement-${achievement.id}`"
+          :key="`achievement-${achievement.id}`"
+          :emoji="'🏆'"
+          :title="achievement.name"
+          :description="achievement.description"
+          :badge="
+            achievementStore.isUnlocked(achievement.id) ? 'Odemčeno' : 'Zamčeno'
+          "
+        />
       </section>
       <section class="upgrades">
         <h2>Vylepšení</h2>
@@ -69,6 +80,9 @@ const automationStore = useAutomationStore();
 
 import { useUpgradeStore } from "./stores/upgradeStore";
 const upgradeStore = useUpgradeStore();
+
+import { useAchievementStore } from "./stores/achievementStore";
+const achievementStore = useAchievementStore();
 
 useGameLoop();
 </script>
@@ -140,6 +154,11 @@ main {
 
 .automation,
 .upgrades {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.achievements {
   display: flex;
   flex-direction: column;
   gap: 1rem;
