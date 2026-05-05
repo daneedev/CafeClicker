@@ -52,10 +52,5 @@ export const useAchievementStore = defineStore("achievements", {
         }
       }
     },
-    register(def: Achievement) {
-      if (!achievements.find((d) => d.id === def.id)) {
-        achievements.push(def);
-      }
-    },
   },
 });

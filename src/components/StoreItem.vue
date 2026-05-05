@@ -4,7 +4,10 @@
     <section class="item-overview">
       <section class="item-header">
         <p class="item-title">{{ props.title }}</p>
-        <div v-if="props.badge" class="item-badge">{{ props.badge }}</div>
+        <div v-if="badgeText" class="item-badge">
+          <font-awesome-icon v-if="badgeIcon" :icon="badgeIcon" />
+          {{ badgeText }}
+        </div>
       </section>
       <p v-if="props.production" class="item-production">
         {{ props.production }}
@@ -15,7 +18,7 @@
     </p>
     <Button
       v-if="props.price !== undefined"
-      :title="btnTitle"
+      :title="props.price.toString()"
       icon="/img/coin.svg"
       :disabled="disabledBtn"
       :onClick="handlePurchase"
@@ -35,6 +38,7 @@ const props = defineProps<{
   emoji: string;
   title: string;
   type?: "automation" | "upgrade" | "achievement";
+  badgeIcon?: string;
   badge?: string;
   description?: string;
   production?: string;
@@ -47,12 +51,16 @@ const upgradeStore = useUpgradeStore();
 
 // allow manual disabling in addition to affordability
 const manualDisabled = ref(false);
+const purchasedBadge = ref("");
+const purchasedBadgeIcon = ref("");
+
+const badgeText = computed(() => purchasedBadge.value || props.badge);
+const badgeIcon = computed(() => purchasedBadgeIcon.value || props.badgeIcon);
+
 const disabledBtn = computed(() => {
   const price = props.price ?? 0;
   return manualDisabled.value || gameStore.coins < price;
 });
-
-const btnTitle = ref(props.price?.toString() ?? "N/A");
 
 function handlePurchase() {
   const price = props.price ?? 0;
@@ -65,7 +73,8 @@ function handlePurchase() {
       case "upgrade":
         upgradeStore.purchaseUpgrade(Number(props.id.split("-")[1]));
         manualDisabled.value = true;
-        btnTitle.value = "Zakoupeno";
+        purchasedBadge.value = "Zakoupeno";
+        purchasedBadgeIcon.value = "check";
         break;
     }
   }

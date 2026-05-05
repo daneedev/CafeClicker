@@ -35,17 +35,24 @@
       <section class="achievements">
         <h2>Ocenění</h2>
         <p>Brzy přidáme možnost získat ocenění za vaše kávové úspěchy!</p>
-        <StoreItem
-          v-for="achievement in achievementStore.achievements"
-          :id="`achievement-${achievement.id}`"
-          :key="`achievement-${achievement.id}`"
-          :emoji="'🏆'"
-          :title="achievement.name"
-          :description="achievement.description"
-          :badge="
-            achievementStore.isUnlocked(achievement.id) ? 'Odemčeno' : 'Zamčeno'
-          "
-        />
+        <div class="achievements-container">
+          <StoreItem
+            v-for="achievement in achievementStore.achievements"
+            :id="`achievement-${achievement.id}`"
+            :key="`achievement-${achievement.id}`"
+            :emoji="'🏆'"
+            :title="achievement.name"
+            :production="achievement.description"
+            :badge="
+              achievementStore.isUnlocked(achievement.id)
+                ? 'Odemčeno'
+                : 'Zamčeno'
+            "
+            :badgeIcon="
+              achievementStore.isUnlocked(achievement.id) ? 'check' : 'lock'
+            "
+          />
+        </div>
       </section>
       <section class="upgrades">
         <h2>Vylepšení</h2>
@@ -153,14 +160,15 @@ main {
 }
 
 .automation,
-.upgrades {
+.upgrades,
+.achievements {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-.achievements {
-  display: flex;
-  flex-direction: column;
+.achievements-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
 
