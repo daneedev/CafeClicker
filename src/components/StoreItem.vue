@@ -15,7 +15,7 @@
     </p>
     <Button
       v-if="props.price !== undefined"
-      :title="`${props.price}`"
+      :title="btnTitle"
       icon="/img/coin.svg"
       :disabled="disabledBtn"
       :onClick="handlePurchase"
@@ -27,7 +27,7 @@
 import Button from "./Button.vue";
 import { useGameStore } from "../stores/gameStore";
 import { useAutomationStore } from "../stores/automationStore";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useUpgradeStore } from "../stores/upgradeStore";
 
 const props = defineProps<{
@@ -45,10 +45,14 @@ const gameStore = useGameStore();
 const automationStore = useAutomationStore();
 const upgradeStore = useUpgradeStore();
 
+// allow manual disabling in addition to affordability
+const manualDisabled = ref(false);
 const disabledBtn = computed(() => {
   const price = props.price ?? 0;
-  return gameStore.coins < price;
+  return manualDisabled.value || gameStore.coins < price;
 });
+
+const btnTitle = ref(props.price?.toString() ?? "N/A");
 
 function handlePurchase() {
   const price = props.price ?? 0;
@@ -60,6 +64,8 @@ function handlePurchase() {
         break;
       case "upgrade":
         upgradeStore.purchaseUpgrade(Number(props.id.split("-")[1]));
+        manualDisabled.value = true;
+        btnTitle.value = "Zakoupeno";
         break;
     }
   }
