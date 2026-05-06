@@ -2,6 +2,8 @@ import { onMounted, onUnmounted } from "vue";
 import { useAutomationStore } from "../stores/automationStore";
 import { useGameStore } from "../stores/gameStore";
 import { useAchievementStore } from "../stores/achievementStore";
+import { saveToLocalStorage } from "./localStorageManager";
+import { useUpgradeStore } from "../stores/upgradeStore";
 
 export function useGameLoop() {
   const gameStore = useGameStore();
@@ -12,6 +14,11 @@ export function useGameLoop() {
   onMounted(() => {
     interval = setInterval(() => {
       gameStore.addCoins(automationStore.totalCps);
+      saveToLocalStorage("gameStore", gameStore);
+      saveToLocalStorage("automationStore", automationStore);
+      saveToLocalStorage("achievementStore", useAchievementStore());
+      saveToLocalStorage("upgradeStore", useUpgradeStore());
+      saveToLocalStorage("lastSaved", new Date().toISOString());
     }, 1000);
     achievementInterval = setInterval(() => {
       const achievements = useAchievementStore();

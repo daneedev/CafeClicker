@@ -37,21 +37,18 @@ const UPGRADES_CATALOG: UpgradeDefinition[] = [
 export const useUpgradeStore = defineStore("upgrades", {
   state: () => ({
     upgrades: UPGRADES_CATALOG,
-    ownedUpgrades: [] as UpgradeDefinition[],
+    ownedUpgrades: [] as number[],
   }),
-  getters: {
-    availableUpgrades(state) {
-      return state.upgrades.filter(
-        (upgrade) => !state.ownedUpgrades.includes(upgrade),
-      );
-    },
-  },
+
   actions: {
     purchaseUpgrade(upgradeId: number) {
       const upgrade = this.upgrades.find((u) => u.id === upgradeId);
-      if (upgrade && !this.ownedUpgrades.includes(upgrade)) {
-        this.ownedUpgrades.push(upgrade);
+      if (upgrade && !this.ownedUpgrades.includes(upgrade.id)) {
+        this.ownedUpgrades.push(upgrade.id);
       }
+    },
+    isOwned(upgradeId: number) {
+      return this.ownedUpgrades.includes(upgradeId);
     },
   },
 });

@@ -67,6 +67,9 @@
           :description="item.description"
           :price="item.cost"
           :type="'upgrade'"
+          :badge="upgradeStore.isOwned(item.id) ? 'Zakoupeno' : ''"
+          :badge-icon="upgradeStore.isOwned(item.id) ? 'check' : ''"
+          :disabled="upgradeStore.isOwned(item.id)"
         />
       </section>
     </div>
@@ -89,9 +92,35 @@ import { useUpgradeStore } from "./stores/upgradeStore";
 const upgradeStore = useUpgradeStore();
 
 import { useAchievementStore } from "./stores/achievementStore";
+import { onMounted } from "vue";
+import { loadFromLocalStorage } from "./composables/localStorageManager";
 const achievementStore = useAchievementStore();
 
 useGameLoop();
+
+onMounted(() => {
+  const savedGame = loadFromLocalStorage<typeof gameStore.$state>("gameStore");
+  if (savedGame) {
+    gameStore.coins = savedGame.coins;
+    gameStore.totalClicks = savedGame.totalClicks;
+    gameStore.coinsPerSecond = savedGame.coinsPerSecond;
+  }
+  const savedAutomation =
+    loadFromLocalStorage<typeof automationStore.$state>("automationStore");
+  if (savedAutomation) {
+    automationStore.ownedLevels = savedAutomation.ownedLevels;
+  }
+  const savedUpgrades =
+    loadFromLocalStorage<typeof upgradeStore.$state>("upgradeStore");
+  if (savedUpgrades) {
+    upgradeStore.ownedUpgrades = savedUpgrades.ownedUpgrades;
+  }
+  const savedAchievements =
+    loadFromLocalStorage<typeof achievementStore.$state>("achievementStore");
+  if (savedAchievements) {
+    achievementStore.unlocked = savedAchievements.unlocked;
+  }
+});
 </script>
 
 <style scoped>

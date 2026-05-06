@@ -13,10 +13,13 @@ const coinsToAdd = computed(() => {
   let baseCoins = 1;
   let clickMultiplier = 0;
   for (const upgrade of upgradeStore.ownedUpgrades) {
-    if (upgrade.effect === "additive") {
-      baseCoins += upgrade.value;
-    } else if (upgrade.effect === "multiplier") {
-      clickMultiplier += upgrade.value;
+    const upgradeDef = upgradeStore.upgrades.find((u) => u.id === upgrade);
+    if (upgradeDef) {
+      if (upgradeDef.effect === "additive") {
+        baseCoins += upgradeDef.value;
+      } else if (upgradeDef.effect === "multiplier") {
+        clickMultiplier += upgradeDef.value;
+      }
     }
   }
   if (clickMultiplier > 0) {

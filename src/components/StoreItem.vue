@@ -32,6 +32,7 @@ import { useGameStore } from "../stores/gameStore";
 import { useAutomationStore } from "../stores/automationStore";
 import { computed, ref } from "vue";
 import { useUpgradeStore } from "../stores/upgradeStore";
+import { saveToLocalStorage } from "../composables/localStorageManager";
 
 const props = defineProps<{
   id?: string;
@@ -43,6 +44,7 @@ const props = defineProps<{
   description?: string;
   production?: string;
   price?: number;
+  disabled?: boolean;
 }>();
 
 const gameStore = useGameStore();
@@ -59,22 +61,25 @@ const badgeIcon = computed(() => purchasedBadgeIcon.value || props.badgeIcon);
 
 const disabledBtn = computed(() => {
   const price = props.price ?? 0;
-  return manualDisabled.value || gameStore.coins < price;
+  return manualDisabled.value || gameStore.coins < price || props.disabled;
 });
 
 function handlePurchase() {
   const price = props.price ?? 0;
   if (props.id && gameStore.spendCoins(price)) {
+    saveToLocalStorage("gameStore", gameStore);
     switch (props.type) {
       case "automation":
         automationStore.levelUp(Number(props.id.split("-")[1]));
         gameStore.coinsPerSecond = automationStore.totalCps;
+        saveToLocalStorage("automationStore", automationStore);
         break;
       case "upgrade":
         upgradeStore.purchaseUpgrade(Number(props.id.split("-")[1]));
         manualDisabled.value = true;
         purchasedBadge.value = "Zakoupeno";
         purchasedBadgeIcon.value = "check";
+        saveToLocalStorage("upgradeStore", upgradeStore);
         break;
     }
   }
