@@ -36,21 +36,23 @@
         <h2>Ocenění</h2>
         <p>Brzy přidáme možnost získat ocenění za vaše kávové úspěchy!</p>
         <div class="achievements-container">
-          <StoreItem
-            v-for="achievement in achievementStore.achievements"
-            :id="`achievement-${achievement.id}`"
-            :key="`achievement-${achievement.id}`"
-            :emoji="'🏆'"
-            :title="achievement.name"
-            :production="achievement.description"
-            :badge="
-              achievementStore.isUnlocked(achievement.id)
-                ? 'Odemčeno'
-                : 'Zamčeno'
-            "
-            :badgeIcon="
-              achievementStore.isUnlocked(achievement.id) ? 'check' : 'lock'
-            "
+          <AchievementItem
+            v-for="item in achievementStore.unlockedAchievements"
+            :id="`achievement-${item.id}`"
+            :key="`achievement-${item.id}`"
+            emoji="🏆"
+            :title="item.name"
+            :description="item.description"
+            :disabled="false"
+          />
+          <AchievementItem
+            v-for="item in achievementStore.lockedAchievements"
+            :id="`achievement-${item.id}`"
+            :key="`achievement-${item.id}`"
+            emoji="🏆"
+            :title="item.name"
+            :description="item.description"
+            :disabled="true"
           />
         </div>
       </section>
@@ -94,6 +96,7 @@ const upgradeStore = useUpgradeStore();
 import { useAchievementStore } from "./stores/achievementStore";
 import { onMounted } from "vue";
 import { loadFromLocalStorage } from "./composables/localStorageManager";
+import AchievementItem from "./components/AchievementItem.vue";
 const achievementStore = useAchievementStore();
 
 useGameLoop();
@@ -172,10 +175,11 @@ main {
   height: 100%;
   display: flex;
   justify-content: center;
+  margin: 1rem;
 }
 
 .grid-container {
-  width: 90%;
+  width: 80%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
@@ -195,6 +199,7 @@ main {
   flex-direction: column;
   gap: 1rem;
 }
+
 .achievements-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

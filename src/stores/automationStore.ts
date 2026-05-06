@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import automationsData from "../data/automations.json";
 
 type AutomationDefinition = {
   id: number;
@@ -13,51 +14,22 @@ type AutomationDefinition = {
 
 type OwnedLevels = Record<AutomationDefinition["id"], number>;
 
-const AUTOMATION_CATALOG: AutomationDefinition[] = [
-  {
-    id: 1,
-    emoji: "\u{1F3EB}",
-    name: "Barista",
-    description: "Základní pomocník pro vaši kavárnu.",
-    baseCost: 20,
-    baseCps: 1,
-    costMultiplier: 1.15,
-    cpsMultiplier: 1.05,
-  },
-  {
-    id: 2,
-    emoji: "\u{2615}",
-    name: "Espresso stroj",
-    description: "Automatizuje přípravu espressa.",
-    baseCost: 125,
-    baseCps: 6,
-    costMultiplier: 1.17,
-    cpsMultiplier: 1.07,
-  },
-  {
-    id: 3,
-    emoji: "🔥",
-    name: "Pražírna",
-    description: "Zvyšuje produkci díky lepším zrnům.",
-    baseCost: 750,
-    baseCps: 32,
-    costMultiplier: 1.2,
-    cpsMultiplier: 1.08,
-  },
-];
+const AUTOMATION_CATALOG = automationsData as AutomationDefinition[];
 
-function createInitialOwnedLevels(): OwnedLevels {
-  return {
-    1: 0,
-    2: 0,
-    3: 0,
-  };
+function createInitialOwnedLevels(
+  catalog: AutomationDefinition[],
+): OwnedLevels {
+  const levels: Partial<OwnedLevels> = {};
+  for (const item of catalog) {
+    levels[item.id] = 0;
+  }
+  return levels as OwnedLevels;
 }
 
 export const useAutomationStore = defineStore("automation", {
   state: () => ({
     catalog: AUTOMATION_CATALOG,
-    ownedLevels: createInitialOwnedLevels() as OwnedLevels,
+    ownedLevels: createInitialOwnedLevels(AUTOMATION_CATALOG),
   }),
   getters: {
     automationCatalog(state) {
@@ -66,12 +38,11 @@ export const useAutomationStore = defineStore("automation", {
         const cost = Math.floor(
           automation.baseCost * Math.pow(automation.costMultiplier, level),
         );
-        let cps =
-          automation.baseCps *
-          (level == 0 ? 0 : Math.pow(automation.cpsMultiplier, level));
-        if (level === 1) {
-          cps = automation.baseCps;
-        }
+        const cps =
+          level === 0
+            ? 0
+            : automation.baseCps *
+              Math.pow(automation.cpsMultiplier, level - 1);
         return {
           ...automation,
           level,

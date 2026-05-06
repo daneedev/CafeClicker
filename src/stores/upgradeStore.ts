@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import upgradesData from "../data/upgrades.json";
 
 interface UpgradeDefinition {
   id: number;
@@ -11,28 +12,7 @@ interface UpgradeDefinition {
   value: number;
 }
 
-const UPGRADES_CATALOG: UpgradeDefinition[] = [
-  {
-    id: 1,
-    emoji: "\u{1F9F0}",
-    name: "Lepší nástroje",
-    description: "Zvyšte efektivitu vašich kliků!",
-    cost: 50,
-    label: "+1 klik",
-    effect: "additive",
-    value: 1,
-  },
-  {
-    id: 2,
-    emoji: "\u{1FAD8}",
-    name: "Lepší zrnka kávy",
-    description: "Zvyšte kvalitu vaší kávy!",
-    cost: 50,
-    label: "1,5x kliknutí",
-    effect: "multiplier",
-    value: 1.5,
-  },
-];
+const UPGRADES_CATALOG = upgradesData as UpgradeDefinition[];
 
 export const useUpgradeStore = defineStore("upgrades", {
   state: () => ({

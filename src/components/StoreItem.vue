@@ -1,21 +1,24 @@
 <template>
   <article class="store-item">
-    <p class="item-emoji">{{ props.emoji }}</p>
-    <section class="item-overview">
-      <section class="item-header">
-        <p class="item-title">{{ props.title }}</p>
-        <div v-if="badgeText" class="item-badge">
-          <font-awesome-icon v-if="badgeIcon" :icon="badgeIcon" />
-          {{ badgeText }}
-        </div>
+    <section class="item-data">
+      <p class="item-emoji">{{ props.emoji }}</p>
+      <section class="item-overview">
+        <section class="item-header">
+          <p class="item-title">{{ props.title }}</p>
+          <div v-if="badgeText" class="item-badge">
+            <font-awesome-icon v-if="badgeIcon" :icon="badgeIcon" />
+            {{ badgeText }}
+          </div>
+        </section>
+        <p v-if="props.description" class="item-description">
+          {{ props.description }}
+        </p>
+        <p v-if="props.production" class="item-production">
+          {{ props.production }}
+        </p>
       </section>
-      <p v-if="props.production" class="item-production">
-        {{ props.production }}
-      </p>
     </section>
-    <p v-if="props.description" class="item-description">
-      {{ props.description }}
-    </p>
+
     <Button
       v-if="props.price !== undefined"
       :title="props.price.toString()"
@@ -99,16 +102,24 @@ function handlePurchase() {
 .item-emoji {
   font-size: 2.5rem;
 }
+
+.item-data {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 .item-overview {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
+
 .item-header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
+
 .item-title {
   font-size: 1.2rem;
   font-weight: bold;

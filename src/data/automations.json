@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "emoji": "🏫",
+    "name": "Barista",
+    "description": "Základní pomocník pro vaši kavárnu.",
+    "baseCost": 20,
+    "baseCps": 1,
+    "costMultiplier": 1.15,
+    "cpsMultiplier": 1.05
+  },
+  {
+    "id": 2,
+    "emoji": "☕",
+    "name": "Espresso stroj",
+    "description": "Automatizuje přípravu espressa.",
+    "baseCost": 125,
+    "baseCps": 6,
+    "costMultiplier": 1.17,
+    "cpsMultiplier": 1.07
+  },
+  {
+    "id": 3,
+    "emoji": "🔥",
+    "name": "Pražírna",
+    "description": "Zvyšuje produkci díky lepším zrnům.",
+    "baseCost": 750,
+    "baseCps": 32,
+    "costMultiplier": 1.2,
+    "cpsMultiplier": 1.08
+  },
+  {
+    "id": 4,
+    "emoji": "🥤",
+    "name": "Cold brew věž",
+    "description": "Stabilní výdělek i bez shonu.",
+    "baseCost": 4500,
+    "baseCps": 170,
+    "costMultiplier": 1.18,
+    "cpsMultiplier": 1.12
+  },
+  {
+    "id": 5,
+    "emoji": "🚗",
+    "name": "Drive-thru okénko",
+    "description": "Obslouží zákazníky i na cestě.",
+    "baseCost": 27000,
+    "baseCps": 900,
+    "costMultiplier": 1.19,
+    "cpsMultiplier": 1.13
+  },
+  {
+    "id": 6,
+    "emoji": "🎨",
+    "name": "Latte art robot",
+    "description": "Umění prodává — a robot nikdy netřese rukou.",
+    "baseCost": 160000,
+    "baseCps": 4800,
+    "costMultiplier": 1.2,
+    "cpsMultiplier": 1.14
+  },
+  {
+    "id": 7,
+    "emoji": "📦",
+    "name": "Předplatné zrnek",
+    "description": "Pravidelný příjem z věrných zákazníků.",
+    "baseCost": 950000,
+    "baseCps": 25000,
+    "costMultiplier": 1.21,
+    "cpsMultiplier": 1.14
+  },
+  {
+    "id": 8,
+    "emoji": "🧑‍💼",
+    "name": "Franchise manažer",
+    "description": "Řídí pobočky a hlídá výkon.",
+    "baseCost": 5500000,
+    "baseCps": 130000,
+    "costMultiplier": 1.22,
+    "cpsMultiplier": 1.15
+  },
+  {
+    "id": 9,
+    "emoji": "🚢",
+    "name": "Přístavní pražírna",
+    "description": "Velkoobjemové pražení pro celý region.",
+    "baseCost": 32000000,
+    "baseCps": 680000,
+    "costMultiplier": 1.23,
+    "cpsMultiplier": 1.15
+  },
+  {
+    "id": 10,
+    "emoji": "🛰️",
+    "name": "Orbitální pražírna",
+    "description": "Kávová logistika… mimo atmosféru.",
+    "baseCost": 190000000,
+    "baseCps": 3600000,
+    "costMultiplier": 1.24,
+    "cpsMultiplier": 1.16
+  }
+]

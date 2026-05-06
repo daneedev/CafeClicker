@@ -8,6 +8,7 @@ import { useUpgradeStore } from "../stores/upgradeStore";
 export function useGameLoop() {
   const gameStore = useGameStore();
   const automationStore = useAutomationStore();
+  const upgradeStore = useUpgradeStore();
   let interval: ReturnType<typeof setInterval>;
   let achievementInterval: ReturnType<typeof setInterval>;
 
@@ -17,12 +18,12 @@ export function useGameLoop() {
       saveToLocalStorage("gameStore", gameStore);
       saveToLocalStorage("automationStore", automationStore);
       saveToLocalStorage("achievementStore", useAchievementStore());
-      saveToLocalStorage("upgradeStore", useUpgradeStore());
+      saveToLocalStorage("upgradeStore", upgradeStore);
       saveToLocalStorage("lastSaved", new Date().toISOString());
     }, 1000);
     achievementInterval = setInterval(() => {
       const achievements = useAchievementStore();
-      achievements.evaluateAll({ gameStore, automationStore });
+      achievements.evaluateAll({ gameStore, automationStore, upgradeStore });
     }, 100);
   });
   onUnmounted(() => {
