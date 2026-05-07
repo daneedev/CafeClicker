@@ -58,6 +58,10 @@ export const useAutomationStore = defineStore("automation", {
     totalCps(): number {
       return this.automationCatalog.reduce((sum, item) => sum + item.cps, 0);
     },
+    totalAutomations(): number {
+      return Object.entries(this.ownedLevels).filter(([_, level]) => level > 0)
+        .length;
+    },
   },
   actions: {
     levelUp(automationId: number) {

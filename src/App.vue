@@ -12,8 +12,9 @@
     </section>
   </header>
   <main>
-    <section class="click-box">
+    <section class="main-section">
       <ClickButton />
+      <StatsBox />
     </section>
     <div class="grid-container">
       <section class="automation">
@@ -100,6 +101,7 @@ import { useAchievementStore } from "./stores/achievementStore";
 import { computed, onMounted } from "vue";
 import { loadFromLocalStorage } from "./composables/localStorageManager";
 import AchievementItem from "./components/AchievementItem.vue";
+import StatsBox from "./components/StatsBox.vue";
 const achievementStore = useAchievementStore();
 
 const coins = computed(() => nfEn.format(gameStore.coins));
@@ -184,20 +186,21 @@ main {
   flex-direction: column;
 }
 
+.main-section {
+  display: flex;
+  width: 70%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin: 2rem;
+}
+
 .grid-container {
   width: 70%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin: 1rem;
-  align-items: start;
-}
-
-.click-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 2rem;
 }
 
 .automation,

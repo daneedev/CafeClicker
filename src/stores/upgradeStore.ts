@@ -23,7 +23,11 @@ export const useUpgradeStore = defineStore("upgrades", {
     })),
     ownedUpgrades: [] as number[],
   }),
-
+  getters: {
+    totalUpgrades(): number {
+      return this.ownedUpgrades.length;
+    },
+  },
   actions: {
     purchaseUpgrade(upgradeId: number) {
       const upgrade = this.upgrades.find((u) => u.id === upgradeId);

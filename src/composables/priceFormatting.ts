@@ -1,5 +1,5 @@
 export const nfEn = new Intl.NumberFormat("en", {
   notation: "compact",
   compactDisplay: "short",
-  maximumFractionDigits: 3,
+  maximumFractionDigits: 2,
 });
