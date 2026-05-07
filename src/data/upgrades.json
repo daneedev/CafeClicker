@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "emoji": "🧰",
+    "name": "Lepší nástroje",
+    "description": "Zvyšte efektivitu vašich kliků!",
+    "cost": 150,
+    "label": "+1 klik",
+    "effect": "additive",
+    "value": 1
+  },
+  {
+    "id": 2,
+    "emoji": "🫘",
+    "name": "Lepší zrnka kávy",
+    "description": "Zvyšte kvalitu vaší kávy!",
+    "cost": 180,
+    "label": "1,5x kliknutí",
+    "effect": "multiplier",
+    "value": 1.5
+  },
+  {
+    "id": 3,
+    "emoji": "🧤",
+    "name": "Baristické rukavice",
+    "description": "Bez popálenin, víc kliků.",
+    "cost": 300,
+    "label": "+1 klik",
+    "effect": "additive",
+    "value": 1
+  },
+  {
+    "id": 4,
+    "emoji": "⏱️",
+    "name": "Rychlovarná rutina",
+    "description": "Tempo, které se nedá zastavit.",
+    "cost": 900,
+    "label": "+2 klik",
+    "effect": "additive",
+    "value": 2
+  },
+  {
+    "id": 5,
+    "emoji": "🥄",
+    "name": "Dvojitá odměrka",
+    "description": "Přesnost přináší výkon.",
+    "cost": 2400,
+    "label": "+3 klik",
+    "effect": "additive",
+    "value": 3
+  },
+  {
+    "id": 6,
+    "emoji": "🧪",
+    "name": "Nitro šok",
+    "description": "Jeden doušek a prsty jedou.",
+    "cost": 4500,
+    "label": "1,5x kliknutí",
+    "effect": "multiplier",
+    "value": 1.5
+  },
+  {
+    "id": 7,
+    "emoji": "🧻",
+    "name": "Věrnostní kartičky",
+    "description": "Drobné odměny, velká motivace.",
+    "cost": 12000,
+    "label": "+5 klik",
+    "effect": "additive",
+    "value": 5
+  },
+  {
+    "id": 8,
+    "emoji": "📣",
+    "name": "TikTok hype",
+    "description": "Více návštěv, více energie.",
+    "cost": 22000,
+    "label": "+0,5x k multiplikátoru",
+    "effect": "multiplier",
+    "value": 0.5
+  },
+  {
+    "id": 9,
+    "emoji": "🧊",
+    "name": "Ledová přesnost",
+    "description": "Chladná hlava, teplé výsledky.",
+    "cost": 45000,
+    "label": "+8 klik",
+    "effect": "additive",
+    "value": 8
+  },
+  {
+    "id": 10,
+    "emoji": "💎",
+    "name": "Single-origin rarita",
+    "description": "Výjimečná chuť, výjimečný zisk.",
+    "cost": 120000,
+    "label": "+13 klik",
+    "effect": "additive",
+    "value": 13
+  },
+  {
+    "id": 11,
+    "emoji": "🧠",
+    "name": "Flow state",
+    "description": "Klikání bez přemýšlení.",
+    "cost": 90000,
+    "label": "+1,0x k multiplikátoru",
+    "effect": "multiplier",
+    "value": 1
+  },
+  {
+    "id": 12,
+    "emoji": "🏆",
+    "name": "Šampion pražení",
+    "description": "Tituly se neudělují zadarmo.",
+    "cost": 180000,
+    "label": "+21 klik",
+    "effect": "additive",
+    "value": 21
+  }
+]

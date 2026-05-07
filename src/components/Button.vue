@@ -1,11 +1,16 @@
 <template>
   <button @click="handleClick" :disabled="props.disabled">
-    {{ props.title }}
+    {{ props.title ?? "" }}
     <img
-      v-if="props.icon"
+      v-if="props.icon && props.iconType === 'image'"
       :src="props.icon"
       :alt="props.iconAlt || ''"
       :aria-hidden="!props.iconAlt"
+      class="button-icon"
+    />
+    <font-awesome-icon
+      v-else-if="props.icon && props.iconType === 'font-awesome'"
+      :icon="props.icon"
       class="button-icon"
     />
   </button>
@@ -13,7 +18,8 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-  title: string;
+  title?: string;
+  iconType?: "font-awesome" | "image";
   icon?: string;
   iconAlt?: string;
   onClick?: () => void;
@@ -47,7 +53,7 @@ button:hover {
 .button-icon {
   width: 16px;
   height: 16px;
-  margin-left: 0.5rem;
+  margin-left: v-bind("props.title ? '0.5rem' : '0'");
 }
 
 button:disabled {
