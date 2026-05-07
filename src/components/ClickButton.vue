@@ -50,9 +50,10 @@ button {
   border-radius: 50%;
   cursor: pointer;
   font-size: 1.5rem;
+  transition-duration: 0.3s;
 }
 
 button:active {
-  transform: scale(0.9);
+  transform: scale(0.8);
 }
 </style>

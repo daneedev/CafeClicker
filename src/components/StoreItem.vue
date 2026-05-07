@@ -23,6 +23,7 @@
       v-if="props.price !== undefined"
       :title="props.priceFormatted || props.price.toString()"
       icon="/img/coin.svg"
+      iconType="image"
       :disabled="disabledBtn"
       :onClick="handlePurchase"
     />

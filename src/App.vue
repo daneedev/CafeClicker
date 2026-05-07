@@ -10,8 +10,37 @@
         <p class="income">{{ coinsPerSecond }}/s</p>
       </div>
     </section>
+    <section class="actions">
+      <Button
+        title="Nastavení"
+        icon="fa-gear"
+        icon-type="font-awesome"
+        @click="settingsModal = true"
+      />
+    </section>
   </header>
   <main>
+    <Modal v-model:is-open="settingsModal">
+      <h2>Nastavení</h2>
+      <div class="info-cards">
+        <InfoCard title="Automatické ukládání">
+          <Switch v-model="autoSave" />
+        </InfoCard>
+        <InfoCard
+          title="Naposledy uloženo"
+          :value="
+            new Date(lastSaved || Date.now()).toLocaleDateString('cs-CZ', {
+              hour: '2-digit',
+              minute: '2-digit',
+            })
+          "
+        />
+        <InfoCard title="Uživatel" value="N/A" />
+        <InfoCard title="Verze" :value="version" />
+      </div>
+      <Button title="Uložit hru" @click="saveAllData" />
+      <Button title="Smazat data" @click="deleteAllData" />
+    </Modal>
     <section class="main-section">
       <ClickButton />
       <StatsBox />
@@ -86,26 +115,56 @@
 import "./style.css";
 import StoreItem from "./components/StoreItem.vue";
 import ClickButton from "./components/ClickButton.vue";
+import Button from "./components/Button.vue";
+import {
+  clearLocalStorage,
+  saveToLocalStorage,
+  loadFromLocalStorage,
+} from "./composables/localStorageManager";
 import { nfEn } from "./composables/priceFormatting";
 import { useGameStore } from "./stores/gameStore";
-const gameStore = useGameStore();
-
-import { useAutomationStore } from "./stores/automationStore";
-import { useGameLoop } from "./composables/useGameLoop";
-const automationStore = useAutomationStore();
-
-import { useUpgradeStore } from "./stores/upgradeStore";
-const upgradeStore = useUpgradeStore();
-
 import { useAchievementStore } from "./stores/achievementStore";
-import { computed, onMounted } from "vue";
-import { loadFromLocalStorage } from "./composables/localStorageManager";
+import { computed, onMounted, ref } from "vue";
 import AchievementItem from "./components/AchievementItem.vue";
 import StatsBox from "./components/StatsBox.vue";
+import Modal from "./components/Modal.vue";
+import InfoCard from "./components/InfoCard.vue";
+import Switch from "./components/Switch.vue";
+import { useUpgradeStore } from "./stores/upgradeStore";
+import { useAutomationStore } from "./stores/automationStore";
+import { useGameLoop } from "./composables/useGameLoop";
+import { version } from "../package.json";
+
+const gameStore = useGameStore();
+const automationStore = useAutomationStore();
+const upgradeStore = useUpgradeStore();
 const achievementStore = useAchievementStore();
+
+function saveAllData() {
+  saveToLocalStorage("gameStore", gameStore.$state);
+  saveToLocalStorage("automationStore", automationStore.$state);
+  saveToLocalStorage("upgradeStore", upgradeStore.$state);
+  saveToLocalStorage("achievementStore", achievementStore.$state);
+}
+
+function deleteAllData() {
+  clearLocalStorage();
+  location.reload();
+}
 
 const coins = computed(() => nfEn.format(gameStore.coins));
 const coinsPerSecond = computed(() => nfEn.format(gameStore.coinsPerSecond));
+const settingsModal = ref(false);
+const lastSaved = computed(() => Number(localStorage.getItem("lastSaved")));
+const autoSave = computed({
+  get() {
+    return gameStore.automaticSave;
+  },
+  set(value: boolean) {
+    gameStore.automaticSave = value;
+    saveAllData();
+  },
+});
 
 useGameLoop();
 
@@ -115,6 +174,7 @@ onMounted(() => {
     gameStore.coins = savedGame.coins;
     gameStore.totalClicks = savedGame.totalClicks;
     gameStore.coinsPerSecond = savedGame.coinsPerSecond;
+    gameStore.automaticSave = savedGame.automaticSave ?? true;
   }
   const savedAutomation =
     loadFromLocalStorage<typeof automationStore.$state>("automationStore");
@@ -219,6 +279,12 @@ main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+}
+
+.info-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 @media (max-width: 700px) {

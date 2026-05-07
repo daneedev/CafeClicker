@@ -2,6 +2,7 @@ export function saveToLocalStorage(key: string, value: any) {
   try {
     const serializedValue = JSON.stringify(value);
     localStorage.setItem(key, serializedValue);
+    localStorage.setItem("lastSaved", Date.now().toString());
   } catch (e) {
     console.error("Error saving to localStorage", e);
   }
@@ -21,7 +22,23 @@ export function loadFromLocalStorage<T>(key: string): T | null {
 export function removeFromLocalStorage(key: string) {
   try {
     localStorage.removeItem(key);
+    localStorage.setItem("lastSaved", Date.now().toString());
   } catch (e) {
     console.error("Error removing from localStorage", e);
+  }
+}
+
+export function clearLocalStorage() {
+  try {
+    localStorage.clear();
+  } catch (e) {
+    console.error("Error clearing localStorage", e);
+  }
+}
+
+export function checkDataAndSave<T>(key: string, newData: T) {
+  const existingData = loadFromLocalStorage<T>(key);
+  if (JSON.stringify(existingData) !== JSON.stringify(newData)) {
+    saveToLocalStorage(key, newData);
   }
 }
