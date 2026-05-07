@@ -37,8 +37,15 @@ export function clearLocalStorage() {
 }
 
 export function checkDataAndSave<T>(key: string, newData: T) {
-  const existingData = loadFromLocalStorage<T>(key);
-  if (JSON.stringify(existingData) !== JSON.stringify(newData)) {
-    saveToLocalStorage(key, newData);
+  try {
+    const existingData = loadFromLocalStorage<T>(key);
+    const serializedExistingData = JSON.stringify(existingData);
+    const serializedNewData = JSON.stringify(newData);
+
+    if (serializedExistingData !== serializedNewData) {
+      saveToLocalStorage(key, newData);
+    }
+  } catch (e) {
+    console.error("Error comparing data for localStorage save", e);
   }
 }

@@ -254,15 +254,15 @@ onMounted(() => {
       const offlineEarnings = offlineSeconds * gameStore.coinsPerSecond;
       if (offlineEarnings > 0) {
         gameStore.addCoins(offlineEarnings);
+        toastStore.show(
+          {
+            emoji: "⏰",
+            title: "Offline zisk",
+            description: `Získali jste ${nfEn.format(offlineEarnings)} mincí zatímco jste byli pryč!`,
+          },
+          5000,
+        );
       }
-      toastStore.show(
-        {
-          emoji: "⏰",
-          title: "Offline zisk",
-          description: `Získali jste ${nfEn.format(offlineEarnings)} mincí zatímco jste byli pryč!`,
-        },
-        5000,
-      );
     }
   }
 });

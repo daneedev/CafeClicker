@@ -9,26 +9,22 @@ export function useGameLoop() {
   const gameStore = useGameStore();
   const automationStore = useAutomationStore();
   const upgradeStore = useUpgradeStore();
+  const achievements = useAchievementStore();
   let interval: ReturnType<typeof setInterval>;
-  let achievementInterval: ReturnType<typeof setInterval>;
 
   onMounted(() => {
     interval = setInterval(() => {
       gameStore.addCoins(automationStore.totalCps);
+      achievements.evaluateAll({ gameStore, automationStore, upgradeStore });
       if (gameStore.automaticSave) {
         checkDataAndSave("gameStore", gameStore);
         checkDataAndSave("automationStore", automationStore);
-        checkDataAndSave("achievementStore", useAchievementStore());
+        checkDataAndSave("achievementStore", achievements);
         checkDataAndSave("upgradeStore", upgradeStore);
       }
     }, 1000);
-    achievementInterval = setInterval(() => {
-      const achievements = useAchievementStore();
-      achievements.evaluateAll({ gameStore, automationStore, upgradeStore });
-    }, 100);
   });
   onUnmounted(() => {
     clearInterval(interval);
-    clearInterval(achievementInterval);
   });
 }

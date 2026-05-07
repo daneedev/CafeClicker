@@ -72,19 +72,19 @@ const disabledBtn = computed(() => {
 function handlePurchase() {
   const price = props.price ?? 0;
   if (props.id && gameStore.spendCoins(price)) {
-    saveToLocalStorage("gameStore", gameStore);
+    saveToLocalStorage("gameStore", gameStore.$state);
     switch (props.type) {
       case "automation":
         automationStore.levelUp(Number(props.id.split("-")[1]));
         gameStore.coinsPerSecond = automationStore.totalCps;
-        saveToLocalStorage("automationStore", automationStore);
+        saveToLocalStorage("automationStore", automationStore.$state);
         break;
       case "upgrade":
         upgradeStore.purchaseUpgrade(Number(props.id.split("-")[1]));
         manualDisabled.value = true;
         purchasedBadge.value = "Zakoupeno";
         purchasedBadgeIcon.value = "check";
-        saveToLocalStorage("upgradeStore", upgradeStore);
+        saveToLocalStorage("upgradeStore", upgradeStore.$state);
         break;
     }
   }
