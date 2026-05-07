@@ -109,14 +109,14 @@ export const achievements: Achievement[] = [
     emoji: "\u{23F1}\u{FE0F}",
     name: "CPS 10",
     description: "Dosáhni 10 mincí za sekundu",
-    check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 25,
+    check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 10,
   },
   {
     id: 11,
     emoji: "\u{1F527}",
     name: "CPS 50",
     description: "Dosáhni 50 mincí za sekundu",
-    check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 100,
+    check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 50,
   },
   {
     id: 12,
