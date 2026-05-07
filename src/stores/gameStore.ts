@@ -6,6 +6,7 @@ export const useGameStore = defineStore("game", {
     totalClicks: 0,
     coinsPerSecond: 0,
     automaticSave: true,
+    offlineEarnings: true,
   }),
   actions: {
     addCoins(amount: number) {

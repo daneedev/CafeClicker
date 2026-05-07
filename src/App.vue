@@ -59,7 +59,9 @@
         <InfoCard title="Automatické ukládání">
           <Switch v-model="autoSave" />
         </InfoCard>
-        <InfoCard title="Vývojář" value="Danee" />
+        <InfoCard title="Offline výdělky">
+          <Switch v-model="offlineEarnings" />
+        </InfoCard>
         <InfoCard
           title="Naposledy uloženo"
           :value="
@@ -164,6 +166,7 @@ import {
   saveToLocalStorage,
   loadFromLocalStorage,
 } from "./composables/localStorageManager";
+import { nfEn } from "./composables/priceFormatting";
 import { useGameStore } from "./stores/gameStore";
 import { useAchievementStore } from "./stores/achievementStore";
 import { computed, onMounted, ref } from "vue";
@@ -177,6 +180,7 @@ import { useUpgradeStore } from "./stores/upgradeStore";
 import { useAutomationStore } from "./stores/automationStore";
 import { useGameLoop } from "./composables/useGameLoop";
 import { version } from "../package.json";
+import { useToastStore } from "./stores/toastStore";
 
 const gameStore = useGameStore();
 const automationStore = useAutomationStore();
@@ -206,6 +210,15 @@ const autoSave = computed({
     saveAllData();
   },
 });
+const offlineEarnings = computed({
+  get() {
+    return gameStore.offlineEarnings;
+  },
+  set(value: boolean) {
+    gameStore.offlineEarnings = value;
+    saveAllData();
+  },
+});
 const achievementsModal = ref(false);
 const menuOpen = ref(false);
 
@@ -214,10 +227,7 @@ useGameLoop();
 onMounted(() => {
   const savedGame = loadFromLocalStorage<typeof gameStore.$state>("gameStore");
   if (savedGame) {
-    gameStore.coins = savedGame.coins;
-    gameStore.totalClicks = savedGame.totalClicks;
-    gameStore.coinsPerSecond = savedGame.coinsPerSecond;
-    gameStore.automaticSave = savedGame.automaticSave ?? true;
+    Object.assign(gameStore.$state, savedGame);
   }
   const savedAutomation =
     loadFromLocalStorage<typeof automationStore.$state>("automationStore");
@@ -233,6 +243,27 @@ onMounted(() => {
     loadFromLocalStorage<typeof achievementStore.$state>("achievementStore");
   if (savedAchievements) {
     achievementStore.unlocked = savedAchievements.unlocked;
+  }
+
+  if (gameStore.offlineEarnings) {
+    const toastStore = useToastStore();
+    const timeOfLastSave = Number(localStorage.getItem("lastSaved"));
+    const now = Date.now();
+    if (timeOfLastSave && now - timeOfLastSave > 1000) {
+      const offlineSeconds = Math.floor((now - timeOfLastSave) / 1000);
+      const offlineEarnings = offlineSeconds * gameStore.coinsPerSecond;
+      if (offlineEarnings > 0) {
+        gameStore.addCoins(offlineEarnings);
+      }
+      toastStore.show(
+        {
+          emoji: "⏰",
+          title: "Offline zisk",
+          description: `Získali jste ${nfEn.format(offlineEarnings)} mincí zatímco jste byli pryč!`,
+        },
+        5000,
+      );
+    }
   }
 });
 </script>

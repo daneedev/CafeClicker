@@ -4,7 +4,7 @@
     "emoji": "🧰",
     "name": "Lepší nástroje",
     "description": "Zvyšte efektivitu vašich kliků!",
-    "cost": 50,
+    "cost": 150,
     "label": "+1 klik",
     "effect": "additive",
     "value": 1
@@ -14,7 +14,7 @@
     "emoji": "🫘",
     "name": "Lepší zrnka kávy",
     "description": "Zvyšte kvalitu vaší kávy!",
-    "cost": 50,
+    "cost": 180,
     "label": "1,5x kliknutí",
     "effect": "multiplier",
     "value": 1.5
@@ -24,7 +24,7 @@
     "emoji": "🧤",
     "name": "Baristické rukavice",
     "description": "Bez popálenin, víc kliků.",
-    "cost": 120,
+    "cost": 300,
     "label": "+1 klik",
     "effect": "additive",
     "value": 1
@@ -34,7 +34,7 @@
     "emoji": "⏱️",
     "name": "Rychlovarná rutina",
     "description": "Tempo, které se nedá zastavit.",
-    "cost": 450,
+    "cost": 900,
     "label": "+2 klik",
     "effect": "additive",
     "value": 2
@@ -44,7 +44,7 @@
     "emoji": "🥄",
     "name": "Dvojitá odměrka",
     "description": "Přesnost přináší výkon.",
-    "cost": 1200,
+    "cost": 2400,
     "label": "+3 klik",
     "effect": "additive",
     "value": 3
@@ -54,7 +54,7 @@
     "emoji": "🧪",
     "name": "Nitro šok",
     "description": "Jeden doušek a prsty jedou.",
-    "cost": 1800,
+    "cost": 4500,
     "label": "1,5x kliknutí",
     "effect": "multiplier",
     "value": 1.5
@@ -64,7 +64,7 @@
     "emoji": "🧻",
     "name": "Věrnostní kartičky",
     "description": "Drobné odměny, velká motivace.",
-    "cost": 6000,
+    "cost": 12000,
     "label": "+5 klik",
     "effect": "additive",
     "value": 5
@@ -74,7 +74,7 @@
     "emoji": "📣",
     "name": "TikTok hype",
     "description": "Více návštěv, více energie.",
-    "cost": 8500,
+    "cost": 22000,
     "label": "+0,5x k multiplikátoru",
     "effect": "multiplier",
     "value": 0.5
@@ -84,7 +84,7 @@
     "emoji": "🧊",
     "name": "Ledová přesnost",
     "description": "Chladná hlava, teplé výsledky.",
-    "cost": 18000,
+    "cost": 45000,
     "label": "+8 klik",
     "effect": "additive",
     "value": 8
@@ -94,7 +94,7 @@
     "emoji": "💎",
     "name": "Single-origin rarita",
     "description": "Výjimečná chuť, výjimečný zisk.",
-    "cost": 55000,
+    "cost": 120000,
     "label": "+13 klik",
     "effect": "additive",
     "value": 13
@@ -104,7 +104,7 @@
     "emoji": "🧠",
     "name": "Flow state",
     "description": "Klikání bez přemýšlení.",
-    "cost": 120000,
+    "cost": 90000,
     "label": "+1,0x k multiplikátoru",
     "effect": "multiplier",
     "value": 1
@@ -114,7 +114,7 @@
     "emoji": "🏆",
     "name": "Šampion pražení",
     "description": "Tituly se neudělují zadarmo.",
-    "cost": 300000,
+    "cost": 180000,
     "label": "+21 klik",
     "effect": "additive",
     "value": 21

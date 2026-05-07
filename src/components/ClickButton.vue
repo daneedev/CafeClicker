@@ -1,5 +1,7 @@
 <template>
-  <button @click="handleClick">Připravit kávu (+ {{ coinsToAdd }} káv)</button>
+  <button @click="handleClick">
+    Připravit kávu (+ {{ coinsToAdd }} <img src="/img/coin.svg" alt="coin" />)
+  </button>
 </template>
 
 <script setup lang="ts">
@@ -55,5 +57,11 @@ button {
 
 button:active {
   transform: scale(0.8);
+}
+
+img {
+  width: 20px;
+  height: 20px;
+  margin-left: 0.5rem;
 }
 </style>
