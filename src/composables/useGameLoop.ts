@@ -17,10 +17,10 @@ export function useGameLoop() {
       gameStore.addCoins(automationStore.totalCps);
       achievements.evaluateAll({ gameStore, automationStore, upgradeStore });
       if (gameStore.automaticSave) {
-        checkDataAndSave("gameStore", gameStore);
-        checkDataAndSave("automationStore", automationStore);
-        checkDataAndSave("achievementStore", achievements);
-        checkDataAndSave("upgradeStore", upgradeStore);
+        checkDataAndSave("gameStore", gameStore.$state);
+        checkDataAndSave("automationStore", automationStore.$state);
+        checkDataAndSave("achievementStore", achievements.$state);
+        checkDataAndSave("upgradeStore", upgradeStore.$state);
       }
     }, 1000);
   });
