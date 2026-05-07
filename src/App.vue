@@ -347,7 +347,7 @@ main {
   display: flex;
   width: 70%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   gap: 2rem;
   margin: 2rem;
 }

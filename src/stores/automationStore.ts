@@ -17,6 +17,19 @@ type OwnedLevels = Record<AutomationDefinition["id"], number>;
 
 const AUTOMATION_CATALOG = automationsData as AutomationDefinition[];
 
+function getCumulativeCps(automation: AutomationDefinition, level: number) {
+  if (level <= 0) return 0;
+
+  if (automation.cpsMultiplier === 1) {
+    return automation.baseCps * level;
+  }
+
+  return (
+    (automation.baseCps * (Math.pow(automation.cpsMultiplier, level) - 1)) /
+    (automation.cpsMultiplier - 1)
+  );
+}
+
 function createInitialOwnedLevels(
   catalog: AutomationDefinition[],
 ): OwnedLevels {
@@ -40,11 +53,7 @@ export const useAutomationStore = defineStore("automation", {
           automation.baseCost * Math.pow(automation.costMultiplier, level),
         );
         const costFormatted = nfEn.format(cost);
-        const cps =
-          level === 0
-            ? 0
-            : automation.baseCps *
-              Math.pow(automation.cpsMultiplier, level - 1);
+        const cps = getCumulativeCps(automation, level);
         return {
           ...automation,
           level,
