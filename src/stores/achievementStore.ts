@@ -31,14 +31,14 @@ export const achievements: Achievement[] = [
     description: "Dosáhni 100 mincí za sekundu",
     check: (ctx) => {
       const automation = ctx.automationStore;
-      return (automation?.totalCps ?? 0) >= 200;
+      return (automation?.totalCps ?? 0) >= 100;
     },
   },
   {
     id: 3,
     emoji: "\u{2615}\u{FE0F}",
     name: "Kafíčkař",
-    description: "Měj alespoň 100 mincí",
+    description: "Měj alespoň 250 mincí",
     check: (ctx) => {
       const game = ctx.gameStore ?? useGameStore();
       return (game.coins ?? 0) >= 250;
@@ -48,7 +48,7 @@ export const achievements: Achievement[] = [
     id: 4,
     emoji: "\u{1F4B0}",
     name: "Kávová hromádka",
-    description: "Měj alespoň 1 000 mincí",
+    description: "Měj alespoň 2 500 mincí",
     check: (ctx) => {
       const game = ctx.gameStore ?? useGameStore();
       return (game.coins ?? 0) >= 2_500;
@@ -58,7 +58,7 @@ export const achievements: Achievement[] = [
     id: 5,
     emoji: "\u{1F3E6}",
     name: "Pokladna praská",
-    description: "Měj alespoň 10 000 mincí",
+    description: "Měj alespoň 20 000 mincí",
     check: (ctx) => {
       const game = ctx.gameStore ?? useGameStore();
       return (game.coins ?? 0) >= 20_000;
@@ -68,7 +68,7 @@ export const achievements: Achievement[] = [
     id: 6,
     emoji: "\u{1F48E}",
     name: "Solidní rozpočet",
-    description: "Měj alespoň 100 000 mincí",
+    description: "Měj alespoň 250 000 mincí",
     check: (ctx) => {
       const game = ctx.gameStore ?? useGameStore();
       return (game.coins ?? 0) >= 250_000;
@@ -78,7 +78,7 @@ export const achievements: Achievement[] = [
     id: 7,
     emoji: "\u{1F911}",
     name: "Milionová směna",
-    description: "Měj alespoň 1 000 000 mincí",
+    description: "Měj alespoň 2 000 000 mincí",
     check: (ctx) => {
       const game = ctx.gameStore ?? useGameStore();
       return (game.coins ?? 0) >= 2_000_000;
@@ -88,7 +88,7 @@ export const achievements: Achievement[] = [
     id: 8,
     emoji: "\u{1F451}",
     name: "Kávový magnát",
-    description: "Měj alespoň 10 000 000 mincí",
+    description: "Měj alespoň 20 000 000 mincí",
     check: (ctx) => {
       const game = ctx.gameStore ?? useGameStore();
       return (game.coins ?? 0) >= 20_000_000;
@@ -123,34 +123,34 @@ export const achievements: Achievement[] = [
     emoji: "\u{1F525}",
     name: "CPS 250",
     description: "Dosáhni 250 mincí za sekundu",
-    check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 400,
+    check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 250,
   },
   {
     id: 13,
     emoji: "\u{1F680}",
-    name: "CPS 500",
-    description: "Dosáhni 500 mincí za sekundu",
-    check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 1_200,
+    name: "CPS 1k",
+    description: "Dosáhni 1 000 mincí za sekundu",
+    check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 1000,
   },
   {
     id: 14,
     emoji: "\u{1F30B}",
-    name: "CPS 1k",
-    description: "Dosáhni 1 000 mincí za sekundu",
+    name: "CPS 2,5k",
+    description: "Dosáhni 2 500 mincí za sekundu",
     check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 2_500,
   },
   {
     id: 15,
     emoji: "\u{1F32A}\u{FE0F}",
-    name: "CPS 5k",
-    description: "Dosáhni 5 000 mincí za sekundu",
+    name: "CPS 8k",
+    description: "Dosáhni 8 000 mincí za sekundu",
     check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 8_000,
   },
   {
     id: 16,
     emoji: "\u{1F320}",
-    name: "CPS 10k",
-    description: "Dosáhni 10 000 mincí za sekundu",
+    name: "CPS 20k",
+    description: "Dosáhni 20 000 mincí za sekundu",
     check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 20_000,
   },
   {
