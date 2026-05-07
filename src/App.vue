@@ -12,10 +12,10 @@
     </section>
   </header>
   <main>
+    <section class="click-box">
+      <ClickButton />
+    </section>
     <div class="grid-container">
-      <section class="click-box">
-        <ClickButton />
-      </section>
       <section class="automation">
         <h2>Automatizace</h2>
         <p>Brzy přidáme možnost automatizace výroby kávy!</p>
@@ -32,31 +32,6 @@
           :type="'automation'"
           :production="`+ ${item.cps.toFixed(2)}/s`"
         />
-      </section>
-      <section class="achievements">
-        <h2>Ocenění</h2>
-        <p>Brzy přidáme možnost získat ocenění za vaše kávové úspěchy!</p>
-        <div class="achievements-container">
-          <AchievementItem
-            v-for="item in achievementStore.unlockedAchievements"
-            :id="`achievement-${item.id}`"
-            :key="`achievement-${item.id}`"
-            emoji="🏆"
-            :title="item.name"
-            :description="item.description"
-            :unlocked-at="item.unlockedAt"
-            :disabled="false"
-          />
-          <AchievementItem
-            v-for="item in achievementStore.lockedAchievements"
-            :id="`achievement-${item.id}`"
-            :key="`achievement-${item.id}`"
-            emoji="🏆"
-            :title="item.name"
-            :description="item.description"
-            :disabled="true"
-          />
-        </div>
       </section>
       <section class="upgrades">
         <h2>Vylepšení</h2>
@@ -76,6 +51,31 @@
           :badge-icon="upgradeStore.isOwned(item.id) ? 'check' : ''"
           :disabled="upgradeStore.isOwned(item.id)"
         />
+      </section>
+      <section class="achievements">
+        <h2>Ocenění</h2>
+        <p>Brzy přidáme možnost získat ocenění za vaše kávové úspěchy!</p>
+        <div class="achievements-container">
+          <AchievementItem
+            v-for="item in achievementStore.unlockedAchievements"
+            :id="`achievement-${item.id}`"
+            :key="`achievement-${item.id}`"
+            :emoji="item.emoji"
+            :title="item.name"
+            :description="item.description"
+            :unlocked-at="item.unlockedAt"
+            :disabled="false"
+          />
+          <AchievementItem
+            v-for="item in achievementStore.lockedAchievements"
+            :id="`achievement-${item.id}`"
+            :key="`achievement-${item.id}`"
+            :emoji="item.emoji"
+            :title="item.name"
+            :description="item.description"
+            :disabled="true"
+          />
+        </div>
       </section>
     </div>
   </main>
@@ -178,23 +178,26 @@ onMounted(() => {
 
 main {
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .grid-container {
-  width: 80%;
+  width: 70%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin: 1rem;
+  align-items: start;
 }
 
 .click-box {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 2rem;
 }
 
 .automation,
@@ -203,6 +206,10 @@ main {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.achievements {
+  grid-column: span 2;
 }
 
 .achievements-container {

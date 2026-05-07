@@ -3,6 +3,7 @@ import { useGameStore } from "./gameStore";
 
 export interface Achievement {
   id: number;
+  emoji: string;
   name: string;
   description: string;
   check: (ctx: AchievementCheckContext) => boolean;
@@ -14,6 +15,7 @@ export type AchievementCheckContext = Record<string, any>;
 export const achievements: Achievement[] = [
   {
     id: 1,
+    emoji: "\u{1FA99}",
     name: "První mince",
     description: "Získej první minci",
     check: (ctx) => {
@@ -23,6 +25,7 @@ export const achievements: Achievement[] = [
   },
   {
     id: 2,
+    emoji: "\u{26A1}\u{FE0F}",
     name: "CPS 100",
     description: "Dosáhni 100 mincí za sekundu",
     check: (ctx) => {
@@ -32,6 +35,7 @@ export const achievements: Achievement[] = [
   },
   {
     id: 3,
+    emoji: "\u{2615}\u{FE0F}",
     name: "Kafíčkař",
     description: "Měj alespoň 100 mincí",
     check: (ctx) => {
@@ -41,6 +45,7 @@ export const achievements: Achievement[] = [
   },
   {
     id: 4,
+    emoji: "\u{1F4B0}",
     name: "Kávová hromádka",
     description: "Měj alespoň 1 000 mincí",
     check: (ctx) => {
@@ -50,6 +55,7 @@ export const achievements: Achievement[] = [
   },
   {
     id: 5,
+    emoji: "\u{1F3E6}",
     name: "Pokladna praská",
     description: "Měj alespoň 10 000 mincí",
     check: (ctx) => {
@@ -59,6 +65,7 @@ export const achievements: Achievement[] = [
   },
   {
     id: 6,
+    emoji: "\u{1F48E}",
     name: "Solidní rozpočet",
     description: "Měj alespoň 100 000 mincí",
     check: (ctx) => {
@@ -68,6 +75,7 @@ export const achievements: Achievement[] = [
   },
   {
     id: 7,
+    emoji: "\u{1F911}",
     name: "Milionová směna",
     description: "Měj alespoň 1 000 000 mincí",
     check: (ctx) => {
@@ -77,6 +85,7 @@ export const achievements: Achievement[] = [
   },
   {
     id: 8,
+    emoji: "\u{1F451}",
     name: "Kávový magnát",
     description: "Měj alespoň 10 000 000 mincí",
     check: (ctx) => {
@@ -86,6 +95,7 @@ export const achievements: Achievement[] = [
   },
   {
     id: 9,
+    emoji: "\u{1F3F0}",
     name: "Kávové impérium",
     description: "Měj alespoň 100 000 000 mincí",
     check: (ctx) => {
@@ -95,72 +105,84 @@ export const achievements: Achievement[] = [
   },
   {
     id: 10,
+    emoji: "\u{23F1}\u{FE0F}",
     name: "CPS 10",
     description: "Dosáhni 10 mincí za sekundu",
     check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 10,
   },
   {
     id: 11,
+    emoji: "\u{1F527}",
     name: "CPS 50",
     description: "Dosáhni 50 mincí za sekundu",
     check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 50,
   },
   {
     id: 12,
+    emoji: "\u{1F525}",
     name: "CPS 250",
     description: "Dosáhni 250 mincí za sekundu",
     check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 250,
   },
   {
     id: 13,
+    emoji: "\u{1F680}",
     name: "CPS 500",
     description: "Dosáhni 500 mincí za sekundu",
     check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 500,
   },
   {
     id: 14,
+    emoji: "\u{1F30B}",
     name: "CPS 1k",
     description: "Dosáhni 1 000 mincí za sekundu",
     check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 1_000,
   },
   {
     id: 15,
+    emoji: "\u{1F32A}\u{FE0F}",
     name: "CPS 5k",
     description: "Dosáhni 5 000 mincí za sekundu",
     check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 5_000,
   },
   {
     id: 16,
+    emoji: "\u{1F320}",
     name: "CPS 10k",
     description: "Dosáhni 10 000 mincí za sekundu",
     check: (ctx) => (ctx.automationStore?.totalCps ?? 0) >= 10_000,
   },
   {
     id: 17,
+    emoji: "\u{1F446}",
     name: "Klik 10",
     description: "Klikni 10×",
     check: (ctx) => (ctx.gameStore?.totalClicks ?? 0) >= 10,
   },
   {
     id: 18,
+    emoji: "\u{1F5B1}\u{FE0F}",
     name: "Klik 100",
     description: "Klikni 100×",
     check: (ctx) => (ctx.gameStore?.totalClicks ?? 0) >= 100,
   },
   {
     id: 19,
+    emoji: "\u{1F4A5}",
     name: "Klik 1k",
     description: "Klikni 1 000×",
     check: (ctx) => (ctx.gameStore?.totalClicks ?? 0) >= 1_000,
   },
   {
     id: 20,
+    emoji: "\u{1F3CB}\u{FE0F}",
     name: "Klik 10k",
     description: "Klikni 10 000×",
     check: (ctx) => (ctx.gameStore?.totalClicks ?? 0) >= 10_000,
   },
   {
     id: 21,
+    emoji: "\u{2699}\u{FE0F}",
     name: "První automatizace",
     description: "Kup si první automatizaci",
     check: (ctx) => {
@@ -173,6 +195,7 @@ export const achievements: Achievement[] = [
   },
   {
     id: 22,
+    emoji: "\u{1F9F0}",
     name: "Základní výbava",
     description: "Kup první 4 upgrady",
     check: (ctx) => {
@@ -183,6 +206,7 @@ export const achievements: Achievement[] = [
   },
   {
     id: 23,
+    emoji: "\u{1F3AF}",
     name: "Specialista",
     description: "Dostaň libovolnou automatizaci na level 25",
     check: (ctx) => {
@@ -195,6 +219,7 @@ export const achievements: Achievement[] = [
   },
   {
     id: 24,
+    emoji: "\u{1F9D1}\u{200D}\u{1F4BC}",
     name: "Manager mindset",
     description: "Kup Franchise manažera",
     check: (ctx) => {
