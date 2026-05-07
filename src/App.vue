@@ -3,11 +3,11 @@
     <h1>Café Clicker</h1>
     <section class="stats">
       <div class="stats-item">
-        <p>{{ gameStore.coins.toFixed(2) }}</p>
+        <p>{{ coins }}</p>
         <img src="/img/coin.svg" alt="coin" class="coin-icon" />
       </div>
       <div class="stats-item">
-        <p class="income">{{ gameStore.coinsPerSecond.toFixed(2) }}/s</p>
+        <p class="income">{{ coinsPerSecond }}/s</p>
       </div>
     </section>
   </header>
@@ -28,6 +28,7 @@
           :description="item.description"
           :badge="'Lvl ' + item.level"
           :price="item.cost"
+          :priceFormatted="item.costFormatted"
           :type="'automation'"
           :production="`+ ${item.cps.toFixed(2)}/s`"
         />
@@ -43,6 +44,7 @@
             emoji="🏆"
             :title="item.name"
             :description="item.description"
+            :unlocked-at="item.unlockedAt"
             :disabled="false"
           />
           <AchievementItem
@@ -68,6 +70,7 @@
           :production="item.label"
           :description="item.description"
           :price="item.cost"
+          :priceFormatted="item.costFormatted"
           :type="'upgrade'"
           :badge="upgradeStore.isOwned(item.id) ? 'Zakoupeno' : ''"
           :badge-icon="upgradeStore.isOwned(item.id) ? 'check' : ''"
@@ -82,7 +85,7 @@
 import "./style.css";
 import StoreItem from "./components/StoreItem.vue";
 import ClickButton from "./components/ClickButton.vue";
-
+import { nfEn } from "./composables/priceFormatting";
 import { useGameStore } from "./stores/gameStore";
 const gameStore = useGameStore();
 
@@ -94,10 +97,13 @@ import { useUpgradeStore } from "./stores/upgradeStore";
 const upgradeStore = useUpgradeStore();
 
 import { useAchievementStore } from "./stores/achievementStore";
-import { onMounted } from "vue";
+import { computed, onMounted } from "vue";
 import { loadFromLocalStorage } from "./composables/localStorageManager";
 import AchievementItem from "./components/AchievementItem.vue";
 const achievementStore = useAchievementStore();
+
+const coins = computed(() => nfEn.format(gameStore.coins));
+const coinsPerSecond = computed(() => nfEn.format(gameStore.coinsPerSecond));
 
 useGameLoop();
 
@@ -175,7 +181,6 @@ main {
   height: 100%;
   display: flex;
   justify-content: center;
-  margin: 1rem;
 }
 
 .grid-container {

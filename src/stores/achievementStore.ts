@@ -6,6 +6,7 @@ export interface Achievement {
   name: string;
   description: string;
   check: (ctx: AchievementCheckContext) => boolean;
+  unlockedAt?: string;
 }
 
 export type AchievementCheckContext = Record<string, any>;
@@ -23,7 +24,7 @@ export const achievements: Achievement[] = [
   {
     id: 2,
     name: "CPS 100",
-    description: "Reach 100 coins per second",
+    description: "Dosáhni 100 mincí za sekundu",
     check: (ctx) => {
       const automation = ctx.automationStore;
       return (automation?.totalCps ?? 0) >= 100;
@@ -207,24 +208,41 @@ export const achievements: Achievement[] = [
 export const useAchievementStore = defineStore("achievements", {
   state: () => ({
     achievements: achievements,
-    unlocked: [] as number[],
+    unlocked: [] as { id: number; unlockedAt: string }[],
   }),
   getters: {
     unlockedAchievements(state) {
-      return state.achievements.filter((a) => state.unlocked.includes(a.id));
+      const achievements = state.achievements.filter((a) =>
+        state.unlocked.find((u) => u.id === a.id),
+      );
+      for (const ach of achievements) {
+        const unlockInfo = state.unlocked.find((u) => u.id === ach.id);
+        if (unlockInfo) {
+          ach.unlockedAt = unlockInfo.unlockedAt;
+        }
+      }
+      achievements.sort((a, b) => {
+        const aTime = a.unlockedAt ? new Date(a.unlockedAt).getTime() : 0;
+        const bTime = b.unlockedAt ? new Date(b.unlockedAt).getTime() : 0;
+        return bTime - aTime;
+      });
+
+      return achievements;
     },
     lockedAchievements(state) {
-      return state.achievements.filter((a) => !state.unlocked.includes(a.id));
+      return state.achievements.filter(
+        (a) => !state.unlocked.find((u) => u.id === a.id),
+      );
     },
   },
   actions: {
     unlockAchievement(id: number) {
-      if (!this.unlocked.includes(id)) {
-        this.unlocked.push(id);
+      if (!this.unlocked.find((u) => u.id === id)) {
+        this.unlocked.push({ id, unlockedAt: new Date().toISOString() });
       }
     },
     isUnlocked(id: number) {
-      return this.unlocked.includes(id);
+      return !!this.unlocked.find((u) => u.id === id);
     },
     evaluateAll(ctx: AchievementCheckContext) {
       for (const def of achievements) {

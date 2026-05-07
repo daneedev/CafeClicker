@@ -21,7 +21,7 @@
 
     <Button
       v-if="props.price !== undefined"
-      :title="props.price.toString()"
+      :title="props.priceFormatted || props.price.toString()"
       icon="/img/coin.svg"
       :disabled="disabledBtn"
       :onClick="handlePurchase"
@@ -47,6 +47,7 @@ const props = defineProps<{
   description?: string;
   production?: string;
   price?: number;
+  priceFormatted?: string;
   disabled?: boolean;
 }>();
 
@@ -98,6 +99,7 @@ function handlePurchase() {
   border-radius: 8px;
   padding: 1rem;
   background-color: #f5f0e0;
+  gap: 1rem;
 }
 .item-emoji {
   font-size: 2.5rem;
@@ -107,22 +109,28 @@ function handlePurchase() {
   display: flex;
   align-items: center;
   gap: 1rem;
+  min-width: 0;
 }
 .item-overview {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  min-width: 0;
 }
 
 .item-header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  min-width: 0;
+  flex-wrap: wrap;
 }
 
 .item-title {
   font-size: 1.2rem;
   font-weight: bold;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .item-badge {
   background-color: #99621e;
@@ -130,6 +138,15 @@ function handlePurchase() {
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
   font-size: 0.8rem;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.item-description,
+.item-production {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .item-production {

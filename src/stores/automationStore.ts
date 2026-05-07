@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import automationsData from "../data/automations.json";
+import { nfEn } from "../composables/priceFormatting";
 
 type AutomationDefinition = {
   id: number;
@@ -38,6 +39,7 @@ export const useAutomationStore = defineStore("automation", {
         const cost = Math.floor(
           automation.baseCost * Math.pow(automation.costMultiplier, level),
         );
+        const costFormatted = nfEn.format(cost);
         const cps =
           level === 0
             ? 0
@@ -47,6 +49,7 @@ export const useAutomationStore = defineStore("automation", {
           ...automation,
           level,
           cost,
+          costFormatted,
           cps,
         };
       });

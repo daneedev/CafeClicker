@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import upgradesData from "../data/upgrades.json";
+import { nfEn } from "../composables/priceFormatting";
 
 interface UpgradeDefinition {
   id: number;
@@ -16,7 +17,10 @@ const UPGRADES_CATALOG = upgradesData as UpgradeDefinition[];
 
 export const useUpgradeStore = defineStore("upgrades", {
   state: () => ({
-    upgrades: UPGRADES_CATALOG,
+    upgrades: UPGRADES_CATALOG.map((upgrade) => ({
+      ...upgrade,
+      costFormatted: nfEn.format(upgrade.cost),
+    })),
     ownedUpgrades: [] as number[],
   }),
 

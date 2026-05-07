@@ -15,6 +15,15 @@
       <p v-if="props.description" class="item-description">
         {{ props.description }}
       </p>
+      <p v-if="props.unlockedAt" class="item-description">
+        Odemčeno
+        {{
+          new Date(props.unlockedAt).toLocaleDateString("cs-CZ", {
+            hour: "2-digit",
+            minute: "2-digit",
+          })
+        }}
+      </p>
     </section>
   </article>
 </template>
@@ -25,6 +34,7 @@ const props = defineProps<{
   emoji: string;
   title: string;
   description?: string;
+  unlockedAt?: string;
   disabled?: boolean;
 }>();
 </script>
