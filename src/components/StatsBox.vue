@@ -65,4 +65,13 @@ article {
   grid-template-columns: repeat(2, 15rem);
   gap: 1rem;
 }
+
+@media (max-width: 550px) {
+  article {
+    width: 100%;
+  }
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}
 </style>

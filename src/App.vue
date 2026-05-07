@@ -2,15 +2,6 @@
   <Toast />
   <header class="game-header">
     <h1>Café Clicker</h1>
-    <section class="stats">
-      <div class="stats-item">
-        <p>{{ coins }}</p>
-        <img src="/img/coin.svg" alt="coin" class="coin-icon" />
-      </div>
-      <div class="stats-item">
-        <p class="income">{{ coinsPerSecond }}/s</p>
-      </div>
-    </section>
     <section class="actions">
       <Button
         title="Ocenění"
@@ -25,7 +16,42 @@
         @click="settingsModal = true"
       />
     </section>
+    <Button
+      @click="menuOpen = !menuOpen"
+      icon="fa-bars"
+      icon-type="font-awesome"
+      class="hamburger"
+    />
   </header>
+  <Transition name="slide">
+    <nav v-if="menuOpen" class="mobile-menu">
+      <Button
+        icon="fa-xmark"
+        icon-type="font-awesome"
+        class="close-hamburger"
+        @click="menuOpen = false"
+      />
+      <Button
+        title="Ocenění"
+        icon="fa-trophy"
+        icon-type="font-awesome"
+        @click="
+          achievementsModal = true;
+          menuOpen = false;
+        "
+      />
+      <Button
+        title="Nastavení"
+        icon="fa-gear"
+        icon-type="font-awesome"
+        @click="
+          settingsModal = true;
+          menuOpen = false;
+        "
+      />
+    </nav>
+  </Transition>
+  <div v-if="menuOpen" class="menu-overlay" @click="menuOpen = false" />
   <main>
     <Modal v-model:is-open="settingsModal">
       <h2>Nastavení</h2>
@@ -33,7 +59,7 @@
         <InfoCard title="Automatické ukládání">
           <Switch v-model="autoSave" />
         </InfoCard>
-        <InfoCard title="Uživatel" value="N/A" />
+        <InfoCard title="Vývojář" value="Danee" />
         <InfoCard
           title="Naposledy uloženo"
           :value="
@@ -101,7 +127,7 @@
       </section>
       <Modal v-model:is-open="achievementsModal">
         <h2>Ocenění</h2>
-        <p>Brzy přidáme možnost získat ocenění za vaše kávové úspěchy!</p>
+        <p>Získejte ocenění za vaše kávové úspěchy!</p>
         <div class="achievements-container">
           <AchievementItem
             v-for="item in achievementStore.unlockedAchievements"
@@ -138,7 +164,6 @@ import {
   saveToLocalStorage,
   loadFromLocalStorage,
 } from "./composables/localStorageManager";
-import { nfEn } from "./composables/priceFormatting";
 import { useGameStore } from "./stores/gameStore";
 import { useAchievementStore } from "./stores/achievementStore";
 import { computed, onMounted, ref } from "vue";
@@ -170,8 +195,6 @@ function deleteAllData() {
   location.reload();
 }
 
-const coins = computed(() => nfEn.format(gameStore.coins));
-const coinsPerSecond = computed(() => nfEn.format(gameStore.coinsPerSecond));
 const settingsModal = ref(false);
 const lastSaved = computed(() => Number(localStorage.getItem("lastSaved")));
 const autoSave = computed({
@@ -184,6 +207,7 @@ const autoSave = computed({
   },
 });
 const achievementsModal = ref(false);
+const menuOpen = ref(false);
 
 useGameLoop();
 
@@ -228,38 +252,57 @@ onMounted(() => {
   font-weight: 700;
 }
 
-.game-header .stats {
-  display: flex;
-  flex-direction: column;
-  margin-left: 2rem;
-}
-
-.game-header .stats-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.game-header .coin-icon {
-  width: 24px;
-  height: 24px;
-  margin-left: 0.5rem;
-}
-
-.game-header .stats-item p {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.game-header .stats-item .income {
-  font-size: 1.2rem;
-  color: var(--primary-color);
-  margin-left: 0.5rem;
-}
-
 .game-header .actions {
   display: flex;
   gap: 1rem;
+}
+
+.hamburger {
+  display: none;
+}
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 220px;
+  background-color: var(--accent-color);
+  border-left: 2px solid var(--secondary-color);
+  z-index: 200;
+  padding: 1rem;
+}
+
+.close-hamburger {
+  align-self: flex-end;
+}
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 199;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.25s ease;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(100%);
+}
+
+@media (max-width: 600px) {
+  .game-header .actions {
+    display: none;
+  }
+  .hamburger {
+    display: block;
+  }
 }
 main {
   width: 100%;
@@ -310,15 +353,31 @@ main {
   gap: 0.5rem;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1200px) {
+  .main-section {
+    flex-direction: column;
+    width: 90%;
+  }
+}
+
+@media (max-width: 1050px) {
+  .grid-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 850px) {
   .grid-container {
     grid-template-columns: 1fr;
   }
 }
+
 @media (max-width: 550px) {
-  .grid-container {
-    width: 95%;
-    padding: 1rem;
+  .achievements-container {
+    grid-template-columns: 1fr;
+  }
+  .info-cards {
+    grid-template-columns: 1fr;
   }
 }
 </style>
