@@ -9,7 +9,7 @@
         :icon-type="'image'"
       />
       <InfoCard
-        :title="'Příjem'"
+        :title="'Příjem/s'"
         :value="coinsPerSecond"
         :icon-src="'/img/coin.svg'"
         :icon-type="'image'"

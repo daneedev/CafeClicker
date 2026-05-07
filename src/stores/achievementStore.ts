@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { useGameStore } from "./gameStore";
+import { useToastStore } from "./toastStore";
 
 export interface Achievement {
   id: number;
@@ -264,6 +265,14 @@ export const useAchievementStore = defineStore("achievements", {
     unlockAchievement(id: number) {
       if (!this.unlocked.find((u) => u.id === id)) {
         this.unlocked.push({ id, unlockedAt: new Date().toISOString() });
+        const achievement = achievements.find((a) => a.id === id);
+        if (achievement) {
+          useToastStore().show({
+            emoji: achievement.emoji,
+            title: achievement.name,
+            description: achievement.description,
+          });
+        }
       }
     },
     isUnlocked(id: number) {

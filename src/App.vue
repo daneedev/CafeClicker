@@ -1,4 +1,5 @@
 <template>
+  <Toast />
   <header class="game-header">
     <h1>Café Clicker</h1>
     <section class="stats">
@@ -11,6 +12,12 @@
       </div>
     </section>
     <section class="actions">
+      <Button
+        title="Ocenění"
+        icon="fa-trophy"
+        icon-type="font-awesome"
+        @click="achievementsModal = true"
+      />
       <Button
         title="Nastavení"
         icon="fa-gear"
@@ -26,6 +33,7 @@
         <InfoCard title="Automatické ukládání">
           <Switch v-model="autoSave" />
         </InfoCard>
+        <InfoCard title="Uživatel" value="N/A" />
         <InfoCard
           title="Naposledy uloženo"
           :value="
@@ -35,11 +43,20 @@
             })
           "
         />
-        <InfoCard title="Uživatel" value="N/A" />
         <InfoCard title="Verze" :value="version" />
+        <Button
+          title="Uložit hru"
+          icon="fa-save"
+          icon-type="font-awesome"
+          @click="saveAllData"
+        />
+        <Button
+          title="Smazat data"
+          icon="fa-trash"
+          icon-type="font-awesome"
+          @click="deleteAllData"
+        />
       </div>
-      <Button title="Uložit hru" @click="saveAllData" />
-      <Button title="Smazat data" @click="deleteAllData" />
     </Modal>
     <section class="main-section">
       <ClickButton />
@@ -82,7 +99,7 @@
           :disabled="upgradeStore.isOwned(item.id)"
         />
       </section>
-      <section class="achievements">
+      <Modal v-model:is-open="achievementsModal">
         <h2>Ocenění</h2>
         <p>Brzy přidáme možnost získat ocenění za vaše kávové úspěchy!</p>
         <div class="achievements-container">
@@ -106,7 +123,7 @@
             :disabled="true"
           />
         </div>
-      </section>
+      </Modal>
     </div>
   </main>
 </template>
@@ -130,6 +147,7 @@ import StatsBox from "./components/StatsBox.vue";
 import Modal from "./components/Modal.vue";
 import InfoCard from "./components/InfoCard.vue";
 import Switch from "./components/Switch.vue";
+import Toast from "./components/Toast.vue";
 import { useUpgradeStore } from "./stores/upgradeStore";
 import { useAutomationStore } from "./stores/automationStore";
 import { useGameLoop } from "./composables/useGameLoop";
@@ -165,6 +183,7 @@ const autoSave = computed({
     saveAllData();
   },
 });
+const achievementsModal = ref(false);
 
 useGameLoop();
 
@@ -238,6 +257,10 @@ onMounted(() => {
   margin-left: 0.5rem;
 }
 
+.game-header .actions {
+  display: flex;
+  gap: 1rem;
+}
 main {
   width: 100%;
   display: flex;
@@ -282,8 +305,8 @@ main {
 }
 
 .info-cards {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem;
 }
 
