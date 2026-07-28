@@ -1,4 +1,4 @@
-import { createApp } from "vue";
+import { createApp, type Component } from "vue";
 import App from "./App.vue";
 import { createPinia } from "pinia";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -12,6 +12,6 @@ library.add(fas, far, fab);
 const pinia = createPinia();
 const app = createApp(App);
 
-app.component("font-awesome-icon", FontAwesomeIcon);
+app.component("font-awesome-icon", FontAwesomeIcon as Component);
 app.use(pinia);
 app.mount("#app");
